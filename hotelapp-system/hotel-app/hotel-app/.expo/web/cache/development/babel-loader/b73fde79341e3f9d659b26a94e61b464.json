@@ -1,0 +1,1 @@
+{"ast":null,"code":"import img from \"./img\";\nexport { img };","map":{"version":3,"sources":["C:/Users/CodeTribe00H/Desktop/my_resume/hotel-app/Components/gallery/reusables/index.js"],"names":["img"],"mappings":"AAAA,OAAOA,GAAP;AAEA,SACIA,GADJ","sourcesContent":["import img from \"./img\";\r\n\r\nexport {\r\n    img\r\n}"]},"metadata":{},"sourceType":"module"}

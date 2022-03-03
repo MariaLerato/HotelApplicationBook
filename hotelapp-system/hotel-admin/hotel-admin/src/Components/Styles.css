@@ -1,0 +1,538 @@
+.SplashContainer {
+  width: 100%;
+  height: 100vh;
+  background-color: #daf5e8;
+}
+.Splash {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+  width: 100%;
+}
+.image img {
+  width: 100%;
+  margin-top: 10%;
+  justify-self: center;
+}
+.list-hotels{
+ text-align: center;
+  align-content: center;
+  color: #b2b2b2;
+}
+.tabled{
+padding:5%
+}
+.hotel-name{
+  font-size: 20px;
+  padding-left: 5%;
+}
+.right {
+  width: 30%;
+}
+.province{
+  padding-left: 20%;
+}
+.city{
+  padding-left: 25%;
+}
+.right h1 {
+  color: #3c7a6f;
+  padding: 2%;
+  font-size: 45px;
+  font-family: "Roboto";
+  margin-bottom: 0px;
+}
+i {
+  /* margin-top: -2em; */
+  color: #464545;
+  padding-left: 15%;
+  margin-bottom: 0%;
+  font-size: 20px;
+}
+.cards{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+ margin: 2%;
+ /* padding:2% */
+}
+.add input{
+  width: 100%;
+}
+.hotel-list li{
+  list-style-type:none;
+ 
+
+}
+.hotel-list {
+  display: flex;
+  justify-content: space-evenly;
+  padding:4%;
+
+  
+}
+.hotel-list p{
+  font-size: 20px;
+  
+}
+.button button {
+  height: 60px;
+  width: 220px;
+  background-color: #3accb1;
+  border-color: #3accb1;
+
+  color: white;
+  font-weight: 500;
+  font-size: 25px;
+  margin-top: 190%;
+  margin-left: -70%;
+  border-radius: 5px;
+}
+.loginContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+}
+.link {
+  width: 20%;
+  background-color: #57a99a;
+  padding: 2%;
+  height: 100vh;
+  position: fixed;
+}
+.link h1 {
+  color: white;
+  font-size: 10;
+  margin-bottom: 10%;
+  text-align: center;
+}
+.link h2 {
+  color: #1C5248;
+  font-size: 18px;
+  padding: 8%;
+  margin-top: 8%;
+  text-align: center;
+}
+.user {
+  margin-top: 20%;
+  align-items: center;
+ 
+}
+.profile {
+  background-color: white;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin: 4%;
+  margin-left: 30%;
+  
+}
+.reserv{
+  text-align: center;
+  font-size: 15;
+}
+.profile i {
+  align-self: center;
+  justify-content: center;
+  color: #d4d4d4;
+  margin-top: 10%;
+  margin-left: 10%;
+}
+.username h3 {
+  color: white;
+  font-size: 20;
+  font-weight: 500;
+
+  text-align: center;
+}
+.dropdown {
+  background-color: #61b0a2;
+  color: white;
+  height: 8%;
+}
+.content {
+  width: 100%;
+}
+.log {
+  width: 38%;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+  margin-left: 28%;
+}
+
+.input-icons i {
+  position: absolute;
+  padding: 20px;
+  min-width: 40px;
+  color: #1c5248;
+}
+
+.input-icons {
+  width: 100%;
+  /* margin-bottom: 10px; */
+}
+.icon {
+  padding: 9px;
+  min-width: 40px;
+}
+.input-field {
+  width: 100%;
+  padding: 8px;
+  padding-left: 18%;
+  border-bottom-color: #b2b2b2;
+  border-bottom-width: 0.5px;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  font-weight: 500;
+  font-size: 19px;
+  margin-top: 4%;
+  outline: none;
+}
+.log h2 {
+  color: #1c5248;
+  font-size: 26px;
+  font-weight: 500;
+  margin-top: 8%;
+}
+.logbutton {
+  margin-top: 14%;
+  margin-left: 25%;
+  border-radius: 5px;
+  height: 60px;
+  width: 50%;
+  background-color: #31b49c;
+  border-color: #31b49c;
+  color: white;
+  font-weight: 500;
+  font-size: 25px;
+  border-radius: 5px;
+}
+.heading {
+  box-shadow: 0px 2px #dddddd;
+  height: 130px;
+}
+.heading h1 {
+  color: #1c5248;
+  padding: 2%;
+  text-align: center;
+  font-weight: 500;
+  font-size: 48px;
+}
+.GuestContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.link p {
+  color: white;
+  margin-top: -8px;
+  padding-left: 10%;
+}
+.link img {
+  padding-left: 2%;
+  align-self: center;
+}
+.activity2 {
+  color: #64d3bf !important;
+}
+.guests {
+  width: 80%;
+  margin-left: 20%;
+}
+.header {
+  box-shadow: 0px 2px #dddddd;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+}
+.search-input {
+  padding: 1%;
+  padding-left: 8%;
+  margin: 2%;
+  background-color: #e4fcf8;
+  border-color: transparent;
+  width: 55%;
+  border-radius: 10px;
+  font-size: 20px;
+  outline: none;
+}
+.alarm {
+  margin-left: -20%;
+  margin-top: 4%;
+}
+.alarmNotfication{
+    margin-right: 25%;
+    margin-top: 2%;
+    color:#3a8a70
+}
+.alarm button {
+  border-radius: 8px !important;
+  border-color: transparent;
+  background-color: #31b49c;
+  color: #fafafa;
+  height: 40px;
+}
+.icon-home {
+  display: flex;
+  flex-direction: row;
+  margin-left: -16%;
+  margin-top: 2%;
+  color: #d4e6e2;
+}
+.hotel {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+
+}
+.hotel h2 {
+  color: #256b5e;
+  font-size: 28px;
+  font-weight: 700;
+}
+.guestlist {
+  padding: 2%;
+  margin-top: -2%;
+  width: 90%;
+  /* background-color: red; */
+}
+.hotel p {
+  color: #b2b2b2;
+  margin-top: 1%;
+  margin-right: 15%;
+}
+
+.list li {
+  background-color: #ffffff;
+  padding: 1%;
+  margin-top: 1px;
+  color: #1c5248;
+  font-size: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.list p {
+  padding-left: 2%;
+  font-size: 15px;
+  color: #b2b2b2;
+}
+.list button {
+  width: 100%;
+  font-size: 12px;
+  background-color: #c7ece5 !important;
+  color: #256b5e;
+  border-color: transparent;
+  border-radius: 10px;
+  height: 40px;
+}
+.link a {
+  text-decoration: none;
+}
+.check {
+  background-color: #61b0a2 !important;
+  color: #feffff;
+  border-color: transparent;
+  border-radius: 10px;
+  margin-left: 35%;
+  width: 10%;
+  font-size: 15px;
+}
+.statusList  {
+  background-color: rgb(255, 255, 255);
+  padding: 1%;
+  margin-top: 1px;
+  color: #1c5248;
+  font-size: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.statusList h5{
+    font-weight: 400;
+}
+.listItems p {
+  padding-left: 3%;
+  font-size: 15px;
+  color: #b2b2b2;
+}
+.listItems {
+  margin-top: -2%;
+}
+.notifications {
+  margin-top: 2%;
+  display: flex;
+  flex-direction: row;
+}
+
+.notifications p {
+  padding-left: 3%;
+  font-size: 15px;
+  color: #b2b2b2;
+}
+.notifications h5 {
+  color: #1c5248;
+  font-size: 20px;
+  padding-left: 1px;
+  width: 100%;
+}
+.listHotels {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* background-color: white; */
+}
+.registerButton button {
+  font-size: 12px;
+  background-color: #c7ece5 !important;
+  color: #256b5e;
+  border-color: transparent;
+  border-radius: 10px;
+  height: 70%;
+  margin-top: 2%;
+}
+.addnew {
+  margin-top: 2%;
+  margin-left: 79%;
+  border-radius: 5px;
+  height: 60px;
+  width: 20%;
+  background-color: #31b49c;
+  border-color: transparent;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  border-radius: 10px;
+}
+.logout {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40%;
+}
+.logout i {
+  color: white;
+}
+.logout h3 {
+  color: white;
+  font-size: 20px;
+}
+.systemusername {
+  color: white;
+  margin-left: 4%;
+  text-align: center;
+}
+.addAdmin {
+  color: #1c5248;
+  font-weight: 500;
+  text-align: center;
+}
+.systemuser {
+  margin: 2%;
+}
+.profilepicture{
+    margin-left: 25%;
+}
+.hotellist {
+  /* background-color: #e6fffa; */
+  /* height: 100vh; */
+}
+.ModalContainer {
+  background-color: white;
+  height: 100%;
+  border-radius: 40px;
+}
+.Add {
+  align-content: center;
+  padding: 4%;
+}
+
+.Add input{
+   margin: 2%;
+  padding-left:15%;
+}
+
+.Add h2 {
+  padding: 2%;
+  margin-left: 35%;
+  color: #1c5248;
+}
+.hotel-input-icons {
+  width: 90%;
+}
+.hotel-input-icons i {
+  position: absolute;
+  padding: 15px;
+  min-width: 40px;
+  color: #1c5248;
+  margin-bottom: 0;
+}
+.hotel-input-icons input {
+  background-color: #e8fdf9;
+  height: 50px;
+  border-bottom-color: transparent;
+  margin-bottom: 0px;
+  border-radius: 10px;
+}
+.cardContainer{
+    padding: 10px;
+    border: 1px solid transparent;
+    transition: 1s ease-in;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.cardRow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cardRow button{
+    width: 90px;
+    height: 50px;
+    margin-right: 15%;
+}
+ .dropThingie {
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgb(151, 151, 151);
+    background-color: #eef1f0;
+    padding-top: 1%;
+    margin-left: 2%;
+    width: 83%;
+    padding-left: -15%;
+    margin-top: 2%;
+  
+}
+.dropThingie h5{
+    color: #b2b2b2;
+    font-size: 15;
+    font-weight: 300;
+
+}
+.dropThingie p{
+    color: #1c5248;
+    font-weight: 600;
+}
+.dropThingie p status{
+    color: #f26741;
+}
+.roomLine{
+    border-right:  thin  #fbfbfb;
+  
+}
+.btnsubmit{
+    background-color: red;
+}
+.btnsubmit.clicked{
+    background-color: green;
+}
+.statusList p::after {
+    color: #f26741;
+}
