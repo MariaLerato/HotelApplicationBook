@@ -15,7 +15,7 @@ import ProfilePicture from "react-native-profile-picture";
 import moment from "moment";
 import BackendInfo from "./service/service";
 
-const Home = ({ AddBooking, navigation }) => {
+const Home = ({ AddBooking, navigation,uid }) => {
   const [open, setOpen] = useState(true);
   const [book, setBook] = useState("");
   const [place, setPlace] = useState("");
@@ -25,8 +25,9 @@ const Home = ({ AddBooking, navigation }) => {
   const [checkOut, setOut] = useState();
   const [client, setClient] = useState([]);
 
-  const [days, setdays] = useState("");
+  const [days, setdays] = useState(0);
 
+  console.log('id',uid)
   const Validate = Yup.object({
     place: Yup.string().required("Missing"),
     rooms: Yup.number().required("Missing").max(2, "Not More Than Two Characters"),
@@ -47,7 +48,7 @@ const Home = ({ AddBooking, navigation }) => {
       },
     ]);
 
-    CalculateDifference();
+
   };
   const retrieveData = () => {
     BackendInfo.getClient()
@@ -61,8 +62,7 @@ const Home = ({ AddBooking, navigation }) => {
       });
   };
   useEffect(() => {
-    retrieveData();
-  
+    retrieveData();  
   }, []);
 
   const CalculateDifference = (date1, date2) => {
@@ -70,7 +70,7 @@ const Home = ({ AddBooking, navigation }) => {
     var b = moment(date2);
     setdays(a.diff(b, "days"));
     console.log(date1, "---", date2);
-    console.log(a.diff(b, "days"));
+    console.log(days);
   };
   return (
     <>
@@ -151,7 +151,7 @@ const Home = ({ AddBooking, navigation }) => {
                     date={values.date}
                     mode="date"
                     placeholder="Check in"
-                    minDate={"2021-12-20"}
+                    minDate={new Date()}
                     maxDate={"2022-12-30"}
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
@@ -169,7 +169,7 @@ const Home = ({ AddBooking, navigation }) => {
                       },
                     }}
                     onDateChange={handleChange("date")}
-                    onCloseModal={CalculateDifference}
+                    // onCloseModal={CalculateDifference}
                   />
                   {errors.date && touched.date ? (
                     <Text style={styles.error}>{errors.date}</Text>
@@ -181,7 +181,7 @@ const Home = ({ AddBooking, navigation }) => {
                     date={values.checkOut}
                     mode="date"
                     placeholder="Check out"
-                    minDate={"2021-12-20"}
+                    minDate={values.date}
                     maxDate={"2022-12-30"}
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
@@ -199,7 +199,7 @@ const Home = ({ AddBooking, navigation }) => {
                       },
                     }}
                     onDateChange={handleChange("checkOut")}
-                    onCloseModal={CalculateDifference}
+                    // onCloseModal={CalculateDifference}
                   />
                   {errors.checkOut && touched.checkOut ? (
                     <Text style={styles.error}>{errors.checkOut}</Text>
@@ -213,6 +213,7 @@ const Home = ({ AddBooking, navigation }) => {
                   containerStyle={{ backgroundColor: "white", height: "15%" }}
                   inputContainerStyle={{ borderColor: "white" }}
                   placeholder={"How many guests ?"}
+                  keyboardType={'number-pad'}
                   style={{ fontSize: 12, padding: "2%", margin: "2%" }}
                 />
               </View>
@@ -227,6 +228,7 @@ const Home = ({ AddBooking, navigation }) => {
                   inputContainerStyle={{ borderColor: "white" }}
                   placeholder={"How many rooms ?"}
                   style={{ fontSize: 12, padding: "2%", margin: "2%" }}
+                  keyboardType={'number-pad'}
                 />
               </View>
 

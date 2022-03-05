@@ -76,6 +76,8 @@ const MyBookings = ({ navigation }) => {
                   Totalprice: data.roomPrice,
                   name: data.name,
                   image: data.hotelImage,
+                  guestId:data.guestId,
+                  hotelId:data._id
                 })
               }
             />
@@ -109,31 +111,12 @@ const MyBookings = ({ navigation }) => {
         </View>
        
             
-        <View style={styles.listContainer}>
+
          <ShowBookings />
-        </View>
       
+     
     </ScrollView>
-    <TouchableOpacity
-        style={{
-          alignSelf: "flex-end",
-          backgroundColor: "#4C9285",
-          width: 70,
-          height: 70,
-          alignContent: "center",
-          justifyContent: "center",
-          borderRadius: 40,
-          marginTop: "auto",
-        //   marginBottom:'2%'
-        }}
-      >
-        <Icon
-          name={"trash"}
-          type={"font-awesome-5"}
-          color={"#FFFFFF"}
-          size={25}
-        />
-      </TouchableOpacity>   
+     
     </View>
   );
 };

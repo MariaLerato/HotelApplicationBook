@@ -6,7 +6,7 @@ import { Formik, Form } from 'formik';
 import User from '../firebase/authentication'
 import { TextInput } from 'react-native-paper';
 import {registerIndieID} from 'native-notify'
-import registerNNPushToken from 'native-notify';
+
 
 
 const SignIn = ({ navigation,uid }) => {
@@ -18,8 +18,8 @@ const SignIn = ({ navigation,uid }) => {
     const Change = () => {
         setIsVisible(!isVisible);
     };
- registerNNPushToken(2214,2214, 'NN6KNoOr2cYVZgro69Hq5Z')
-     
+ 
+    console.log('uid',uid)
     const LogIn = () => {
         // alert(email)
        User.signIn(email,password,navigation)
@@ -77,9 +77,6 @@ const SignIn = ({ navigation,uid }) => {
                                 rightIcon={<PasswordView />}
                                 secureTextEntry={isVisible}
                             />
-                            {/* {errors.password && touched.password ? (
-                                <Text style={{ color: 'red', paddingLeft: '2%', fontSize: 12 }}>{errors.password}</Text>
-                            ) : null} */}
                             <Text style={styles.password} onPress={() => navigation.navigate('resetpassword')}>Forgot Password?</Text>
                             <TouchableOpacity style={styles.touchableOpacity} onPress={LogIn}><Text style={styles.touchableText}>Sign In</Text></TouchableOpacity>
                             <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('SignUp')}><Text style={styles.touchabletext}>Sign Up</Text></TouchableOpacity>

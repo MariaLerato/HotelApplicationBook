@@ -22,7 +22,7 @@ class BackendInfo {
     postClient(data){
         return http.post("/client",data)
     }
-    deleteBooking(id){
+    deleteBooking(id,){
         return http.delete(`/guests?id=${id}`)
     }
     getHotels(id){
@@ -31,6 +31,11 @@ class BackendInfo {
     updateClient(data){
         return http.put("/client",data)
     }
-    
+    getNotification(page=0){
+        return http.get(`/notify?page=${page}`)
+    }
+    addNotify(data){
+        return http.post('/notify',data)
+    }
 }
 export default new BackendInfo()

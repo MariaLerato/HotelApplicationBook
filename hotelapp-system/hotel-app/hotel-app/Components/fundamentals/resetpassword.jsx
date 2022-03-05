@@ -7,12 +7,12 @@ import * as Yup from 'yup'
 
 const Reset = ({navigation})=>{
     const [email,setEmail] = useState('')
-
+    console.log('email',email)
     const Validate = Yup.object({
         email:Yup.string().email('Invalid Email, Enter Correct Format')
     })
     const Submit = ()=>{
-        User.resetPassword(email)
+        User.resetPassword(email,navigation)
     }
     return (
         <>
@@ -32,11 +32,12 @@ const Reset = ({navigation})=>{
                 <Text style={styles.title}>Email</Text>
                 <Input
                 placeholder=" Email Address"
-                value={values.email}
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
                 style={styles.input}
-                leftIcon={<Icon name="envelope-o" type="font-awesome" color='#1C5248'  />}
+                value={email}
+                tppe={'email'}
+                                // onBlur={handleBlur('email')}
+                onChangeText={(e)=>setEmail(e)}
+                leftIcon={<Icon name="envelope-o" type="font-awesome" color='#1C5248' />}
                 />
                 <TouchableOpacity style={styles.touchableOpacity} onPress={handleSubmit}><Text style={styles.touchableText}>Submit</Text></TouchableOpacity>
             </View>   

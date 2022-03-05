@@ -22,7 +22,7 @@ const ConfirmPayment = ({ navigation, route }) => {
     roomId
   } = route.params;
  console.log('total',roomPrice)
- console.log(hotelImage,hotelname,rooms,guests,email)
+ console.log(hotelname,rooms,guests,email)
 
   const PaymentCard = () => {
     return (
@@ -260,7 +260,7 @@ const ConfirmPayment = ({ navigation, route }) => {
             alignSelf: "center",
             marginTop: "10%",
           }}
-          onPress={()=>navigation.navigate("pay",{hotelname:hotelname,dateIn:dateIn,dateOut:dateOut,rooms:rooms,roomPrice:roomPrice,name:name,hotelImage:hotelImage,guests:guests,Room:Room,roomId:roomId})}
+          onPress={()=>navigation.navigate("pay",{hotelname:hotelname,dateIn:dateIn,dateOut:dateOut,rooms:rooms,roomPrice:roomPrice,name:name,hotelImage:hotelImage,guests:guests,Room:Room,roomId:roomId,email})}
         >
           <Text
             style={{

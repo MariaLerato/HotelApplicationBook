@@ -5,23 +5,24 @@ import { Avatar,Icon } from 'react-native-elements';
 import BackendInfo from '../service/service'
 
 const DetailsHistory = ({navigation,route}) =>{
-    const {name,Totalprice,dateIn,dateOut,roomNo,image,hotelname} = route.params
+    const {name,Totalprice,dateIn,dateOut,roomNo,image,hotelname,guestId,hotelId} = route.params
  const [hotelGuests,setHotelGuests] = useState([])
 //  const [isLoading,setLoading] = useState(true)
     const [status,setStatus] = useState('Booked')
-   console.log('image',image)
-    const deleteBooking = (guestId,index)=>{
+    console.log('try deleting',guestId);
+    const Delete = (index)=>{
         BackendInfo.deleteBooking(guestId)
         .then(response=>{
             setHotelGuests((e)=>{
-               e.hotelGuests.splice(index, 1)
+               hotelGuests.splice(index, 1)
                 return({
-                    ...e
+                    ...hotelGuests
                 })
             })
-            console.log(guestId ,' deleted')
+            navigation.goBack()
+            console.log(guestId ,' deleted',response.data)
         }).catch((e)=>{
-            console.log(e)
+            console.log('error deleting',e)
         })
     }
     return(
@@ -39,7 +40,7 @@ const DetailsHistory = ({navigation,route}) =>{
                <Avatar size={'medium'} style={{borderColor:'white',borderWidth:0.5,width:200,height:200}} source={{uri:image}}/>
                <Text style={{color:'#4C9285',fontSize:30,padding:'2%'}}>{hotelname}</Text>
            </View>
-           <View style={{display:'flex',flexDirection:'row',marginTop:'8%',alignItems:'center',justifyContent:'center9'}}>
+           <View style={{display:'flex',flexDirection:'row',marginTop:'8%',alignItems:'center',justifyContent:'center'}}>
                <View style={{padding:'2%'}}>
                     <Text style={{fontSize:20}}>Guest</Text>
                     <Text style={{fontSize:20}}>No. of Rooms</Text>
@@ -59,7 +60,7 @@ const DetailsHistory = ({navigation,route}) =>{
            </View>
            <View>
                
-           <TouchableOpacity style={{width:'90%',height:65,borderColor:'#61B0A2',borderWidth:4,borderRadius:10,alignItems:'center',justifyContent:'center',alignSelf:'center',marginTop:'10%'}} onPress={deleteBooking}>
+           <TouchableOpacity style={{width:'90%',height:65,borderColor:'#61B0A2',borderWidth:4,borderRadius:10,alignItems:'center',justifyContent:'center',alignSelf:'center',marginTop:'10%'}} onPress={Delete}>
                <Text style={styles.touchableText}>Delete Booking</Text>
             </TouchableOpacity>
            </View>

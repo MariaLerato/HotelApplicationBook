@@ -12,38 +12,20 @@ import { Icon } from "react-native-elements";
 import SearchAlt from "./searchAlt";
 import ProfilePicture from "react-native-profile-picture";
 import SkeletonContent from "react-native-skeleton-content";
-
 import BackendInfo from "./service/service";
 
 const Search = ({ navigation, route }) => {
   const [hotels, setHotels] = useState([]);
   const [client, setClient] = useState([]);
-  const [isLoading, setIsLoaded] = useState(true);
-  const { location, roomNo, guestNo, dateIn, dateOut, days } = route.params;
+  // const [isLoading, setIsLoaded] = useState(false);
 
-  const INTERVAL_Refresh = 3000;
-  const PlaceHolder = () => {
-    return (
-      <SkeletonContent
-        containerStyle={{ width: 200, height: 200, flexDirection: "row" }}
-        isLoading={isLoading}
-        // duration={120}
-        // animationType={"pulse"}
-        animationDirection={"horizontalLeft"}
-        boneColor={"#E1E9EE"}
-        layout={[
-          { key: "1", width: 165, height: 170, marginBottom: 1 },
-          { key: "2", width: 165, height: 170, marginBottom: 1 },
-        ]}
-      ></SkeletonContent>
-    );
-  };
+  const { location, roomNo, guestNo, dateIn, dateOut, days } = route.params;
   console.log("diff", days);
+
   const retrieveData = () => {
     BackendInfo.getAll()
       .then((res) => {
         console.log(res.data);
-        setIsLoaded(true);
         setHotels(res.data);
       })
       .catch((e) => {
@@ -54,7 +36,7 @@ const Search = ({ navigation, route }) => {
     BackendInfo.getClient()
       .then((res) => {
         console.log(res.data);
-        setIsLoaded(true);
+      
         setClient(res.data);
       })
       .catch((e) => {
@@ -68,17 +50,15 @@ const Search = ({ navigation, route }) => {
 
   let searchString = location;
   const searchData = hotels.filter((data) =>
-    data.province.toUpperCase().includes(searchString)
+    data.province.toUpperCase().includes(searchString.toUpperCase())
   );
   const DisplayHotels = () => {
     return (
         <View
      style={{flexDirection:'row',paddingLeft:'6%'}}
         >
-          {/* {!isLoading?(<>
-          <Text>Please Wait While We Sync The </Text>
-          </>)} */}
-          {searchData.map((data) => (
+       
+            {searchData.map((data) => (
             <View style={{ padding: "2%" }} key={data._id}>
               <ImageBackground
                 source={{ uri: data.image.image }}
@@ -191,13 +171,7 @@ const Search = ({ navigation, route }) => {
             </View>
             <View style={{ marginTop: "-2%"  ,
                   height: 190,}}>
-             {
-               !isLoading?(<>
-                <Text>Loading Available Hotels</Text>
-               </>):(<>
                     <DisplayHotels/>
-               </>)
-}
             </View>
           </View>
           <View>

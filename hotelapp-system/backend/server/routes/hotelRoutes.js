@@ -6,6 +6,7 @@ import FacilityController from '../Controllers/hotelFacility.js'
 import UserController from '../Controllers/User.controllers.js'
 import ClientCtrl from '../Controllers/ClientController.js'
 import ReviewsCtrl from '../Controllers/Reviews.js'
+import NotifyController from '../Controllers/AdminController.js'
 
 const router = express.Router()
 
@@ -48,6 +49,8 @@ router.route("/guests").get(HotelGuestCtrl.apiGetHotelGuests)
 router.route('/facility').post(FacilityController.apiPostFacility)
 .get(FacilityController.apiGetFacility)
 
+router.route('/notify').post(NotifyController.apiPostGuestNotify)
+.get(NotifyController.apiGetNotification)
 
 export default router
 

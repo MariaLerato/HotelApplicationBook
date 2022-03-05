@@ -68,8 +68,8 @@ const hotelroom = ({ navigation, route }) => {
         <> 
         {SearchRooms.map((data) => (
           <View key={data.id}>
-              {data.status ==='Not Available'?(<>
-                
+              {data.status !=='Not Available'?(
+              <>  
                 <View style={Styles.subHead}>
               <TouchableOpacity
                 onPress={() =>
@@ -164,11 +164,12 @@ const Styles = StyleSheet.create({
     fontSize: 24,
     paddingLeft: "5%",
     fontWeight: "700",
+   
   },
   subHead: {
     display: "flex",
     flexDirection: "row",
-    // padding: '2%',
+  
     justifyContent: "space-between",
   },
   RoomHead: {
@@ -176,6 +177,9 @@ const Styles = StyleSheet.create({
     fontSize: 20,
     paddingVertical: "2%",
     paddingHorizontal: "2%",
+     textDecorationStyle:'solid',
+     textDecorationLine:'underline',
+     textDecorationColor:"#06AC8E"
   },
   price: {
     color: "#06AC8E",

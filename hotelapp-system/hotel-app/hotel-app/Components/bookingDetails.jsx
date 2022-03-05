@@ -24,7 +24,7 @@ const Confirm = ({ navigation, route }) => {
     days
 
   } = route.params;
-  let total = days + price;
+  let total = days * price;
 
   const TotalPrice = () => {
     return <Text>R {total}</Text>;
@@ -240,7 +240,7 @@ const Confirm = ({ navigation, route }) => {
               borderRadius: 10,
               marginLeft: "6%",
             }}
-            onPress={() => navigation.navigate("booking")}
+            onPress={() => navigation.navigate("home")}
           >
             <Text
               style={{

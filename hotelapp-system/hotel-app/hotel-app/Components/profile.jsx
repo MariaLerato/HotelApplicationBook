@@ -6,10 +6,12 @@ import BackendInfo from './service/service'
 import ProfilePicture from 'react-native-profile-picture';
 import User from './firebase/authentication'
 
-const Profile = ({ navigation, route }) => {
+const Profile = ({ navigation, route,uid }) => {
     const [client, setClient] = useState([])
     const [isLoaded,setIsLoaded] = useState(false)
     const [image,setImage] = useState()
+    console.log('uid',uid)
+
     const retrieveData = (e) => {
         BackendInfo.getClient()
             .then((res) => {
@@ -32,8 +34,7 @@ const Profile = ({ navigation, route }) => {
                     <View style={Styles.header}>
                         <Image source={{ uri:data.image.localUri}} style={{ width: 160, height: 160, borderRadius: 70, borderColor: 'white', borderWidth: 5, marginTop: '-8%' }}></Image>
                         <Text style={Styles.headText}>{data.name} {data.surname}</Text>
-                        </View>
-                        
+                        </View>                    
                     </>
                 )
             }

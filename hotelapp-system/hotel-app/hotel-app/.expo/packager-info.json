@@ -1,10 +1,10 @@
 {
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
-  "expoServerPort": 19001,
-  "devToolsPort": 19003,
-  "packagerPort": 19001,
+  "expoServerNgrokUrl": "https://i5-69k.fenyane02.hotel-app.exp.direct",
+  "packagerNgrokUrl": "https://packager.i5-69k.fenyane02.hotel-app.exp.direct",
+  "ngrokPid": 24908,
+  "expoServerPort": 19000,
+  "devToolsPort": 19002,
+  "packagerPort": 19000,
   "packagerPid": null,
   "webpackServerPort": null
 }

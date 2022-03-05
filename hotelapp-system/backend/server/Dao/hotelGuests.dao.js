@@ -15,21 +15,23 @@ export  default class HotelGuestsDAO{
             console.error(`Unable to establish connection handle in hotelsDao: ${e}`)
         }
     }
-    static async addHotelGuests(hotelId,roomId,guestId,GuestInfo){
+    static async addHotelGuests(hotelId,guestId,name,rooms,guests,roomPrice,hotelImage,hotelname,dateIn,dateOut,Room,email,status){
         try{
             const hotelGuestsHoc = {
                 hotelId:hotelId,
-                roomId:roomId,
-                name:GuestInfo.name,
-                rooms:GuestInfo.rooms,
-                guests:GuestInfo.guests,
+            
                 guestId:guestId,
-                roomPrice:GuestInfo.roomPrice,
-                hotelImage:GuestInfo.hotelImage,
-                hotelname:GuestInfo.hotelname,
-                dateIn:GuestInfo.dateIn,
-                dateOut:GuestInfo.dateOut,
-                Room:GuestInfo.Room
+                name:name,
+                rooms:rooms,
+                guests:guests,
+                roomPrice:roomPrice,
+                hotelImage:hotelImage,
+                hotelname:hotelname,
+                dateIn:dateIn,
+                dateOut:dateOut,
+                Room:Room,
+                email,
+                status
             }
             console.log(hotelGuestsHoc)
             return await hotelGuests.insertOne(hotelGuestsHoc)
@@ -48,7 +50,8 @@ export  default class HotelGuestsDAO{
                 roomPrice:GuestInfo.roomPrice,
                 hotelImage:GuestInfo.hotelImage,
                 dateIn:GuestInfo.dateIn,
-                dateOut:GuestInfo.dateOut
+                dateOut:GuestInfo.dateOut,
+                email:GuestInfo.email
             }
             console.log(guestHoc)
             return await hotelGuests.insertOne(guestHoc)
@@ -120,17 +123,17 @@ export  default class HotelGuestsDAO{
             return {GuestList:[],totalNumGuests:0}
         }
     }
-    static async deleteHotel(hotelId,adminId){
+    static async deleteHotel(guestId){
         try{
            const deleteResponse = await hotelGuests.deleteOne({
-               _id:ObjectId(hotelId),
-               adminId:adminId
+               _id:ObjectId(guestId),
            }) 
+           console.log('delete',deleteResponse);
            return deleteResponse
            
         }catch(e){
-            console.error(`Unable to delete hotel:${e}`)
-            return {error:e}
+            console.error(`Unable to delete hotel guest:${e}`)
+            
         }
     }
     static async updateHotelGuest(hotelId,userId,status,date){

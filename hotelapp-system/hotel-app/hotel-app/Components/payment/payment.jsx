@@ -3,15 +3,15 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon, Input } from 'react-native-elements'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import DatePicker from 'react-native-datepicker';
+
 
 const PaymentMethod = ({ navigation, route }) => {
   const [email, setEmail] = useState('')
   const [fullname, setName] = useState('')
   const [cvv, setCVV] = useState('')
-  const [date, setDate] = useState('')
+  const [number, setNumber] = useState('')
   const [payment, setPayment] = useState([])
-
+  const [date,setDate] = useState(new Date())
   const { hotelname, Totalprice, Roomname, Guestnumber, dateIn, dateOut, roomNo, location, image, roomId } = route.params
 
   console.log(Totalprice)
@@ -23,14 +23,13 @@ const PaymentMethod = ({ navigation, route }) => {
       number: number,
       cvv: cvv
     }])
-    // alert('Details Saved')
-
+    console.log('data payment',payment)
   }
   const Validate = Yup.object({
     email: Yup.string().email('Enter correct email format').required('Required'),
     fullname: Yup.string().required('Required'),
-    number: Yup.number().required('Required').max(16,'invalid'),
-    cvv: Yup.number.required('Required').max(3,'Not more than 3 numbers')
+    number: Yup.string().required('Required').max(16,'invalid'),
+    cvv: Yup.string().required('Required').max(3,'Not more than 3 numbers')
   })
 
   return (
@@ -38,7 +37,7 @@ const PaymentMethod = ({ navigation, route }) => {
       <View style={{ backgroundColor: '#FFFFFF', flex: 1 }}>
         <View style={Styles.header}>
           <Icon name={'arrow-back'} color={'#C4C4C4'} style={{ fontWeight: '700', marginTop: '20%' }} onPress={() => navigation.goBack()} />
-          <Text style={Styles.textHead}>Payment Methods</Text>
+          <Text style={Styles.textHead}>Payment</Text>
 
         </View>
         <Formik
@@ -48,25 +47,29 @@ const PaymentMethod = ({ navigation, route }) => {
             number: '',
             cvv: ''
           }}
-          onSubmit={(values) =>{NewMethod(values.email, values.fullname,values.cvv,values.date),
-            navigation.navigate('paymentmethod', {
-          email :values.email,
-        name:values.name,
-        // date:values.date,
-      cvv:values.cvv,
-        roomPrice:Totalprice,
-        guests:Guestnumber,
-        Room:Roomname,
-        hotelname:hotelname,
-        dateIn:dateIn,
-        dateOut:dateOut,
-        rooms:roomNo,
-        location:location,
-        hotelImage:image,
-        roomId:roomId
-          })}}
+        
         validateOnMount={true}
         validationSchema={Validate}
+        onSubmit={(values)=>{
+          NewMethod(values.cvv,values.email,values.fullname,values.number);
+          navigation.navigate('paymentmethod', {
+            email :values.email,
+            name:values.fullname,
+            number:values.number,
+          cvv:values.cvv,
+            roomPrice:Totalprice,
+            guests:Guestnumber,
+            Room:Roomname,
+            hotelname:hotelname,
+            dateIn:dateIn,
+            dateOut:dateOut,
+            rooms:roomNo,
+            location:location,
+            hotelImage:image,
+            roomId:roomId
+          })
+        }
+         }
            >
         {({ errors, handleChange, handleSubmit, handleBlur, touched, values }) => (
           <View>
@@ -75,34 +78,34 @@ const PaymentMethod = ({ navigation, route }) => {
                 placeholder={'Full Name'}
                 leftIcon={<Icon name={'user'} type={'font-awesome-5'} size={30} color={'#6DA399'} />}
                 style={Styles.textbox}
-                value={values.name}
-                onChangeText={handleChange('name')}
-                onBlur={handleBlur('name')}
+                value={values.fullname}
+                onChangeText={handleChange('fullname')}
+          
               />
-              {errors.name && touched.name ? (
-                <Text style={{ color: 'red', paddingLeft: '2%', fontSize: 12 }}>{errors.number}</Text>
+                {errors.fullname && touched.fullname ? (
+                <Text style={Styles.error}>{errors.fullname}</Text>
               ) : null}
               <Input
                 placeholder={'Email'}
-                leftIcon={<Icon name={'envelop'} type={'font-awesome-5'} size={30} color={'#6DA399'} />}
+                leftIcon={<Icon name={'at'} type={'font-awesome-5'} size={30} color={'#6DA399'} />}
                 style={Styles.textbox}
                 value={values.email}
                 onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
+                keyboardType={'email-address'}
               />
-              {errors.email && touched.email ? (
-                <Text style={{ color: 'red', paddingLeft: '2%', fontSize: 12 }}>{errors.name}</Text>
+                {errors.email && touched.email ? (
+                <Text style={Styles.error}>{errors.email}</Text>
               ) : null}
               <Input
                 placeholder={'Card Number'}
-                leftIcon={<Icon name={'id-card'} type={'font-awesome-5'} size={30} color={'#6DA399'} />}
+                leftIcon={<Icon name={'credit-card'} type={'font-awesome-5'} size={30} color={'#6DA399'} />}
                 style={Styles.textbox}
                 value={values.number}
                 onChangeText={handleChange('number')}
-                onBlur={handleBlur('number')}
+                keyboardType={'number-pad'}
               />
-              {errors.number && touched.number ? (
-                <Text style={{ color: 'red', paddingLeft: '2%', fontSize: 12 }}>{errors.cvv}</Text>
+                {errors.number && touched.number ? (
+                <Text style={Styles.error}>{errors.number}</Text>
               ) : null}
             <Input
                 placeholder={'CVV'}
@@ -110,15 +113,15 @@ const PaymentMethod = ({ navigation, route }) => {
                 style={Styles.textbox}
                 value={values.cvv}
                 onChangeText={handleChange('cvv')}
-                onBlur={handleBlur('cvv')}
+                keyboardType={'number-pad'}
               />
               {errors.cvv && touched.cvv ? (
-                <Text style={{ color: 'red', paddingLeft: '2%', fontSize: 12 }}>{errors.cvv}</Text>
+                <Text style={Styles.error}>{errors.cvv}</Text>
               ) : null}
-              
-
             </View>
-            <TouchableOpacity style={{ width: '80%', height: 65, borderColor: '#61B0A2', borderWidth: 4, borderRadius: 40, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginTop: '10%' }} onPress={handleSubmit}><Text style={{ color: '#61B0A2', fontSize: 24 }}>Save</Text></TouchableOpacity>
+            <TouchableOpacity style={{ width: '80%', height: 65, borderColor: '#61B0A2', borderWidth: 4, borderRadius: 40, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginTop: '10%' }} 
+       onPress={handleSubmit}
+            ><Text style={{ color: '#61B0A2', fontSize: 24 }}>Save</Text></TouchableOpacity>
           </View>
         )}
       </Formik>
@@ -132,6 +135,11 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     padding: '2%',
     marginTop: '10%',
+  },
+  error: {
+    color: "red",
+    padding: "2%",
+    fontSize: 11,
   },
   textHead: {
     color: '#1C5248',

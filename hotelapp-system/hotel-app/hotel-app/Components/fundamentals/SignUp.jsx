@@ -8,16 +8,16 @@ import firebase from '../firebase/firebase';
 
 const SignUp = ({ navigation }) => {
     const [isVisible, setIsVisible] = useState(true)
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
     const [confirm, setConfirm] = useState()
+    console.log(email)
+    console.log(password)
 
-    // const Log = () => {
         const Log = () => {
-            User.signUp(email,password)
+            User.signUp(email,password,navigation)
+          
         }  
-   
-
     const Validate = Yup.object({
         email: Yup.string().required('Invalid').email('Invalid Email'),
         password: Yup.string().max(8, 'Not more than 8 characters').min(4, 'Not less than 5 characters').required('Invalid')
@@ -64,8 +64,8 @@ const SignUp = ({ navigation }) => {
                                 placeholder=" Email Address"
                                 style={styles.input}
                                 value={email}
-                                onChangeText={()=>setEmail()}
-                                onBlur={(e)=>setEmail(e.target.value)}
+                                onChangeText={(t)=>setEmail(t)}
+                          
                                 leftIcon={<Icon name="envelope-o" type="font-awesome" color='#1C5248' />}
                             />
                             {/* {errors.email && touched.email ? (
@@ -79,8 +79,8 @@ const SignUp = ({ navigation }) => {
                                 rightIcon={<PasswordView />}
                                 secureTextEntry={isVisible}
                                 value={password}
-                                onChangeText={()=>setPassword()}
-                                onBlur={(e)=>setPassword(e.target.value)}
+                                onChangeText={(t)=>setPassword(t)}
+                           
                             />
                             {/* {errors.password && touched.password ? (
                                 <Text>{errors.password}</Text>
@@ -93,8 +93,8 @@ const SignUp = ({ navigation }) => {
                                 rightIcon={<PasswordView />}
                                 secureTextEntry={isVisible}
                                 value={confirm}
-                                onChangeText={()=>setConfirm()}
-                                onBlur={()=>setConfirm()}
+                                onChangeText={(t)=>setConfirm(t)}
+                             
                             />
                             {/* {errors.confirm && touched.confirm ? (
                                 <Text> {errors.confirm}</Text>

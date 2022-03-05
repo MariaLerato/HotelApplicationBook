@@ -7,6 +7,7 @@ import FacilityDAO from './Dao/hotelfacility.dao.js'
 import UserDAO from './Dao/User.dao.js'
 import ClientDao from './Dao/ClientUser.js'
 import ReviewsDao from './Dao/ReviewsDao.js'
+import NotifyDAO from './Dao/NotifiyDao.js'
 const Mongo = mongodb.MongoClient
 
 Mongo.connect(
@@ -27,6 +28,7 @@ Mongo.connect(
     await UserDAO.injectDB(client)
     await ClientDao.injectDB(client)
     await ReviewsDao.injectDB(client)
+    await NotifyDAO.injectDB(client)
 })
 
 

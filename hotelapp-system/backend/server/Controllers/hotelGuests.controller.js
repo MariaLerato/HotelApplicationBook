@@ -8,34 +8,36 @@ export default class HotelGuestController{
     static async apiPostHotelGuests(req,res,next){
         try{
             const hotelId = req.body.hotel_id
-            const user_id=req.body.user_id
-            const GuestInfo = {
-                name:req.body.name,
-                rooms:req.body.rooms,
-                guests:req.body.guests,
-                roomPrice:req.body.roomPrice,
-                hotelImage:req.body.hotelImage,
-                hotelname:req.body.hotelname,
-                dateIn:req.body.dateIn,
-                dateOut:req.body.dateOut,
-                Room:req.body.Room
-            }
-            const status = req.body.status
+            const guestId=req.body.guestId
+              const  name=req.body.name
+              const  rooms=req.body.rooms
+             const   guests=req.body.guests
+            const    roomPrice=req.body.roomPrice
+            const    hotelImage=req.body.hotelImage
+            const    hotelname=req.body.hotelname
+            const    dateIn=req.body.dateIn
+            const    dateOut=req.body.dateOut
+            const    Room=req.body.Room
+            const    email=req.body.email
             
-            console.log("Details",req.body)
+            const status = req.body.status
             const HotelGuestResponse = await HotelGuestDAO.addHotelGuests(
                ObjectId(hotelId),
-               user_id,
-               GuestInfo
+               guestId,
+               name,
+               rooms,
+               guests,
+               roomPrice,
+               hotelImage,
+               hotelname,
+               dateIn,
+               dateOut,
+               Room,
+               email,
+               status
             )
-            console.log(HotelGuestResponse)
+            console.log('guests',HotelGuestResponse)
             res.json({status:"Success"})
-            if(checkIn){
-                return status = status.checkIn
-            }else{
-                return status = status.checkOut
-            }
-
         }catch(e){
             res.status(500).json({error:e.message})
         }
@@ -89,19 +91,18 @@ export default class HotelGuestController{
     }
     static async apiDeleteHotelGuests(req,res,next){
         try{
-            const hotelId = req.query.id
-            const adminId = req.body.adminId
-            console.log(hotelId)
+            const guestId = req.query.id
+            
+            console.log(guestId)
             const HotelResponse = await HotelGuestDAO.deleteHotel(
-              hotelId,
-              adminId
+        
+              guestId
             )
-                console.log(HotelResponse)
+                console.log('delRes',HotelResponse)
             res.json({ status :"success"})
         }catch(e){
             res.status(500).json({error:e.message})
         }
-
     }
     static async DeleteGuestHistory(req,res){
         try{

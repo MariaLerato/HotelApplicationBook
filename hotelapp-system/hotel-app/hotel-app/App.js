@@ -45,7 +45,7 @@ const Menu = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const uid = localStorage.getItem("userid");
-
+ console.log('userid',uid)
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -55,7 +55,7 @@ const Menu = () => {
         {uid ? (
           <>
              <Stack.Screen name={"SplashScreen"} component={SplashScreen} />
-            <Stack.Screen name={"bottomTab"} component={TabNavigator} />
+            <Stack.Screen name={"bottomTab"} component={TabNavigator} uid={uid} />
             <Stack.Screen name={"editprofile"} component={EditProfile} />
             <Stack.Screen name={"roomA"} component={RoomA} />
             <Stack.Screen name={"other"} component={RoomB} />
@@ -67,9 +67,8 @@ const Menu = () => {
             <Stack.Screen name={"profile"} component={Profile} />
             <Stack.Screen name={"review"} component={Review} />
             <Stack.Screen name={"feedback"} component={Feedback} />
-            <Stack.Screen name={"notification"} component={Notification} />
+            <Stack.Screen name={"notification"} component={Notification } uid={uid} />
             <Stack.Screen name={"searchHistory"} component={SearchHistory} />
-          
             <Stack.Screen name="detail" component={Detail} />
             <Stack.Screen name={"map"} component={Maps} />
             <Stack.Screen name={"Search"} component={Search} />
@@ -80,8 +79,8 @@ const Menu = () => {
             <Stack.Screen name={"roomsMenu"} component={roomMenu} />
             <Stack.Screen name={"venda"} component={VendaHotels} />
             <Stack.Screen name={"historyDetails"} component={DetailsHistory} />
-            <Stack.Screen name={"SearchBookings"} component={SearchBookings} />
-            <Stack.Screen name="pay" component={Pay} />
+            <Stack.Screen name={"SearchBookings"} component={SearchBookings} uid={uid} />
+            <Stack.Screen name="pay" component={Pay} uid={uid} />
           </>
         ) : (
           <>
@@ -91,6 +90,7 @@ const Menu = () => {
             <Stack.Screen name={"passwordAlert"} component={Alert} />
             <Stack.Screen name={"bottomTab"} component={TabNavigator} />
             <Stack.Screen name={"profile"} component={Profile} />
+           
             <Stack.Screen
               name={"SignIn"}
               component={SignIn}
@@ -122,7 +122,6 @@ const Menu = () => {
             <Stack.Screen name={"hotelrooms"} component={hotelroom} />
             <Stack.Screen name={"Pretoria"} component={PretoriaHotels} />
             <Stack.Screen name={"sandton"} component={SandtonHotels} />
-
             <Stack.Screen name={"limpopo"} component={PolokwaneHotels} />
             <Stack.Screen name={"roomsMenu"} component={roomMenu} />
             <Stack.Screen name={"venda"} component={VendaHotels} />

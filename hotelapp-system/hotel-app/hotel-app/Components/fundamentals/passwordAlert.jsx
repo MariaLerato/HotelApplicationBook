@@ -7,16 +7,16 @@ const Alert = ({navigation})=>{
         <>
             <View style={styles.container}>
               
-              {
-                  Info.info.map(data =>
+        
                       <View style={styles.message}>
                           <Text style={styles.text}>
-                              An email has been sent to {data.email}.Verify your email and click on the link to reset your password
+                              An email has been sent to you.Verify your email on the link sent.
+                              Thank you
                           </Text>
                          
                           </View>
-                          )
-              }
+                      
+            
               <Text style={styles.back} onPress={()=>navigation.navigate('SignIn')}>Go back</Text>
             </View>
         </>
