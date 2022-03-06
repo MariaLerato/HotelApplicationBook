@@ -177,7 +177,7 @@ const Search = ({ navigation, route }) => {
           <View>
             <Text style={styles.neartext}>Best Rated</Text>
             {SearchAlt.nearby
-              .filter((data) => data.province === location)
+              .filter((data) => data.province.toUpperCase() === location.toUpperCase())
               .map((action) => (
                 <View key={action.id} style={styles.near}>
                   <TouchableOpacity

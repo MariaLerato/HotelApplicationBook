@@ -36,7 +36,7 @@ const TabNavigator = ({route}) => {
                     ),
                 }}
             />
-            <Tab.Screen name="notification" component={Notification} 
+            {/* <Tab.Screen name="notification" component={Notification} 
                  options={{
                     tabBarIcon: ({ color, size }) => (
                         <Icon
@@ -47,7 +47,7 @@ const TabNavigator = ({route}) => {
                         />
                     ),
                 }}
-            />
+            /> */}
             <Tab.Screen name="profile" component={Profile} 
            
                 options={{

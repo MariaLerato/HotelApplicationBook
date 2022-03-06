@@ -162,7 +162,7 @@ const Rooms = ({users}) => {
                                 position: 'absolute',
                                 width: '60%',
                                 padding:'2%',
-                                height:"95%",
+                              
                                 margin: 'auto',
                                 borderRadius: 10,
                                 alignItems: 'center',
