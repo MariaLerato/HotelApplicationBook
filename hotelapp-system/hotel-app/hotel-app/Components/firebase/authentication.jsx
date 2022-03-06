@@ -25,7 +25,7 @@ class User{
         firebase.app.auth().signInWithEmailAndPassword(email,password).then(res => {
             if(res.user.emailVerified){
                 alert('email verified')
-                navigation.navigate('bottomTab')
+                navigation.navigate('bottomTab',{uid:res.user.uid})
                 localStorage.setItem('userid', res.user.uid)
             }
             else {
@@ -47,13 +47,15 @@ class User{
         })
     }
     getLoggedData(id){
+console.log('id',id)
         return firebase.ref(`/user/${id}`)
+        
     }
     logOut(navigation){
         firebase.app.auth().signOut().then(() => {
             console.log('logged out')
             localStorage.removeItem('userid')
-            navigation.goBack()
+            navigation.goBack('login')
         }).catch(err => {
             console.log(err.message)
         })

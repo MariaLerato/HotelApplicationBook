@@ -19,7 +19,7 @@ const SignIn = ({ navigation,uid }) => {
         setIsVisible(!isVisible);
     };
  
-    console.log('uid',uid)
+    // console.log('uid',uid)
     const LogIn = () => {
         // alert(email)
        User.signIn(email,password,navigation)

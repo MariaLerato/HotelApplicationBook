@@ -1,22 +1,28 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import Home from './home'
 import { Icon } from 'react-native-elements'
-import Search from './Search'
 
 import Profile from './profile'
 import MyBookings from './BookingHisttory/myBookings'
 import Notification from './notification'
 
-const TabNavigator = ({uid}) => {
-    console.log('bottom',uid)
+const TabNavigator = ({route}) => {
+    const uid = route.params.uid
+    const [name,setName] = useState()
+    console.log('kjloilhlgygguyguyguyguygi')
+    // const [id,setId] = useState(null)
+    console.log('tabId',uid)
+
     const Tab = createMaterialBottomTabNavigator()
     return (
         <Tab.Navigator
             barStyle={{ backgroundColor: 'white' }} activeColor='#1C5248' inactiveColor={'#d9d9d9'}
             labeled={false}
         >
-            <Tab.Screen name="home" component={Home} uid ={uid}
+            <Tab.Screen name="home" component={Home }
+           id={uid}
+            
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <Icon name={'home'} type="font-awesome" color={color} />
@@ -42,8 +48,8 @@ const TabNavigator = ({uid}) => {
                     ),
                 }}
             />
-
-            <Tab.Screen name="profile" component={Profile} uid={uid}
+            <Tab.Screen name="profile" component={Profile} 
+           
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <Icon name={'user'} type="font-awesome" color={color} />

@@ -5,20 +5,16 @@ import { Avatar,Icon } from 'react-native-elements';
 import BackendInfo from '../service/service'
 
 const DetailsHistory = ({navigation,route}) =>{
-    const {name,Totalprice,dateIn,dateOut,roomNo,image,hotelname,guestId,hotelId} = route.params
+    const {name,Totalprice,dateIn,dateOut,roomNo,image,hotelname,guestId,Id} = route.params
  const [hotelGuests,setHotelGuests] = useState([])
 //  const [isLoading,setLoading] = useState(true)
     const [status,setStatus] = useState('Booked')
-    console.log('try deleting',guestId);
-    const Delete = (index)=>{
-        BackendInfo.deleteBooking(guestId)
+    console.log('try deleting',Id);
+    const Delete = (itemId)=>{
+        BackendInfo.deleteBooking(Id)
         .then(response=>{
-            setHotelGuests((e)=>{
-               hotelGuests.splice(index, 1)
-                return({
-                    ...hotelGuests
-                })
-            })
+            setHotelGuests(res.data.hotelGuests)
+            console.log('delered check out');
             navigation.goBack()
             console.log(guestId ,' deleted',response.data)
         }).catch((e)=>{

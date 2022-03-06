@@ -14,20 +14,25 @@ import { Formik } from "formik";
 import ProfilePicture from "react-native-profile-picture";
 import moment from "moment";
 import BackendInfo from "./service/service";
+import Users from './firebase/authentication'
 
-const Home = ({ AddBooking, navigation,uid }) => {
+const Home = ({ AddBooking, navigation,route ,id}) => {
+  console.log('margidjjd');
   const [open, setOpen] = useState(true);
   const [book, setBook] = useState("");
   const [place, setPlace] = useState("");
+  // const id = route.params.id
   const [rooms, setRooms] = useState("");
   const [guests, setGuests] = useState("");
   const [date, setDate] = useState();
   const [checkOut, setOut] = useState();
   const [client, setClient] = useState([]);
-
+const [uid,setId]=useState(null)
+const [email,setEmail] = useState()
   const [days, setdays] = useState(0);
 
-  console.log('id',uid)
+  console.log('consoleid',id)
+
   const Validate = Yup.object({
     place: Yup.string().required("Missing"),
     rooms: Yup.number().required("Missing").max(2, "Not More Than Two Characters"),
@@ -35,6 +40,12 @@ const Home = ({ AddBooking, navigation,uid }) => {
     date: Yup.date().required("Missing"),
     checkOut: Yup.date().required("Missing"),
   });
+  
+  
+    // useEffect(()=>{
+    //
+    // })
+
   const bookHotel = () => {
     setBook([
       ...book,
@@ -48,8 +59,8 @@ const Home = ({ AddBooking, navigation,uid }) => {
       },
     ]);
 
-
   };
+  
   const retrieveData = () => {
     BackendInfo.getClient()
       .then((res) => {
@@ -61,9 +72,20 @@ const Home = ({ AddBooking, navigation,uid }) => {
         console.log(e);
       });
   };
+  const GetLogged = ()=>{
+    const  id = localStorage.getItem('userid')
+        Users.getLoggedData(id).on('value',action=>{
+            const data = action.val()
+            console.log('fetchedit',id)
+            setId(data.id)
+            setEmail(data.email)
+        })
+  }
   useEffect(() => {
     retrieveData();  
+    GetLogged()
   }, []);
+  console.log('useremal',email)
 
   const CalculateDifference = (date1, date2) => {
     var a = moment(date1);
@@ -85,8 +107,8 @@ const Home = ({ AddBooking, navigation,uid }) => {
 
         {client.map((data) => (
         <>
-              <View style={styles.header} key={data._id}>
-            <View>
+              <View style={styles.header} >
+            <View key={data._id}>
               <Text style={styles.headertext}>Hi {data.name}</Text>
               <Text
                 style={{ color: "#6E9B93", fontSize: 14, paddingLeft: "1%" }}

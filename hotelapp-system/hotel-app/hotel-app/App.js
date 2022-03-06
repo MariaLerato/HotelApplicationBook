@@ -45,7 +45,7 @@ const Menu = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const uid = localStorage.getItem("userid");
- console.log('userid',uid)
+ console.log('useridUio',uid)
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -89,7 +89,7 @@ const Menu = () => {
             <Stack.Screen name={"resetpassword"} component={Reset} />
             <Stack.Screen name={"passwordAlert"} component={Alert} />
             <Stack.Screen name={"bottomTab"} component={TabNavigator} />
-            <Stack.Screen name={"profile"} component={Profile} />
+            <Stack.Screen name={"profile"} component={Profile} uid={uid}/>
            
             <Stack.Screen
               name={"SignIn"}

@@ -8,26 +8,18 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
+
+import ClipLoader from 'react-spinners/ClipLoader'
 import { Icon, Input, Avatar, ListItem } from "react-native-elements";
 // import { img } from "../gallery/reusables";
 import BackendInfo from "../service/service";
 
 const MyBookings = ({ navigation }) => {
-
+ 
   const [hotelGuest, setGuest] = useState([]);
   const [client, setClient] = useState([]);
   const [isLoadig,setLoading] = useState(false)
 
-  const SearchInput = () => {
-    return (
-      <View style={{ marginTop: "2%" }}>
-        <Input
-          placeholder={"Search Bookings"}
-          containerStyle={{ borderBottomColor: "#C4C4C4" }}
-        />
-      </View>
-    );
-  };
   const retrieveGuest = (e) => {
     BackendInfo.getAllGuests().then((res) => {
       console.log('guest',res.data.hotelGuest);
@@ -38,6 +30,8 @@ const MyBookings = ({ navigation }) => {
       console.log('error',e);
     })
   };
+  console.log('ttttttttttt')
+
   const getClient = () => {
     BackendInfo.getClient()
       .then((res) => {
@@ -56,8 +50,11 @@ const MyBookings = ({ navigation }) => {
   const ShowBookings = () => {
     return (
       <>
-      {!isLoadig?(
+      {!isLoadig?(<>
         <Text>Please Wait While We Sync Your Bookings</Text>
+
+        
+        </>
       ):(
         <>
            {hotelGuest.map((data) => 
@@ -77,7 +74,7 @@ const MyBookings = ({ navigation }) => {
                   name: data.name,
                   image: data.hotelImage,
                   guestId:data.guestId,
-                  hotelId:data._id
+                  Id:data._id
                 })
               }
             />
