@@ -15,8 +15,14 @@ import ProfilePicture from "react-native-profile-picture";
 import moment from "moment";
 import BackendInfo from "./service/service";
 import Users from './firebase/authentication'
+import firebase from './firebase/firebase'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+
+
 
 const Home = ({ AddBooking, navigation,route ,id}) => {
+
   console.log('margidjjd');
   const [open, setOpen] = useState(true);
   const [book, setBook] = useState("");
@@ -29,9 +35,12 @@ const Home = ({ AddBooking, navigation,route ,id}) => {
   const [client, setClient] = useState([]);
 const [uid,setId]=useState(null)
 const [email,setEmail] = useState()
-  const [days, setdays] = useState(0);
+  const [days, setdays] = useState();
+  const [name,setName] = useState()
 
-  console.log('consoleid',id)
+
+  console.log('consoleid')
+
 
   const Validate = Yup.object({
     place: Yup.string().required("Missing"),
@@ -73,7 +82,7 @@ const [email,setEmail] = useState()
       });
   };
   const GetLogged = ()=>{
-    const  id = localStorage.getItem('userid')
+    const  id = AsyncStorage.getItem('userid')
         Users.getLoggedData(id).on('value',action=>{
             const data = action.val()
             console.log('fetchedit',id)
@@ -81,18 +90,36 @@ const [email,setEmail] = useState()
             setEmail(data.email)
         })
   }
+
   useEffect(() => {
     retrieveData();  
-    GetLogged()
+    // _db.collection('/users').child(user).get('value',snap=>{
+    //     setName(snap.val() && snap.val().name)
+    //     console.log('name',name)
+    // })
+    // GetLogged()
+   
+    console.log('skjhiud')
   }, []);
-  console.log('useremal',email)
+  // console.log('useremal',email)
 
-  const CalculateDifference = (date1, date2) => {
-    var a = moment(date1);
-    var b = moment(date2);
-    setdays(a.diff(b, "days"));
-    console.log(date1, "---", date2);
+  const CalculateDifference = (values) => {
+    var a = moment(values.date);
+    var b = moment(values.checkOut);
+    setdays(b.diff(a, "days"));
+    console.log()
+    console.log(values.date, "---", values.checkOut);
     console.log(days);
+    navigation.navigate("Search", {
+      location: values.place,
+      roomNo: values.rooms,
+      guestNo: values.guests,
+      dateIn: values.date,
+      dateOut: values.checkOut,
+      days: b.diff(a, "days"),
+      // userId:user
+    });
+
   };
   return (
     <>
@@ -103,11 +130,13 @@ const [email,setEmail] = useState()
         />
       </View>
       <View style={styles.container}>
-
+    
 
         {client.map((data) => (
         <>
-              <View style={styles.header} >
+       
+          <>
+            <View style={styles.header} >
             <View key={data._id}>
               <Text style={styles.headertext}>Hi {data.name}</Text>
               <Text
@@ -117,9 +146,16 @@ const [email,setEmail] = useState()
               </Text>
             </View>
             <Image source={{ uri:data.image.localUri}} style={{ width: 60, height: 60,borderRadius:40 }}></Image>
-          </View> 
+         
+         </View>
+          </>
+
+      
+            
+         
         </>
         ))}
+     
         <Formik
           initialValues={{
             place: "",
@@ -131,15 +167,8 @@ const [email,setEmail] = useState()
           validateOnMount={true}
           validationSchema={Validate}
           onSubmit={(values) => {
-            CalculateDifference(values.checkOut, values.date);
-            navigation.navigate("Search", {
-              location: values.place,
-              roomNo: values.rooms,
-              guestNo: values.guests,
-              dateIn: values.date,
-              dateOut: values.checkOut,
-              days: days,
-            });
+            CalculateDifference(values);
+
           }}
         >
           {({

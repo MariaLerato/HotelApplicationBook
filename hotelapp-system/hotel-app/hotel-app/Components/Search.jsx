@@ -11,17 +11,17 @@ import {
 import { Icon } from "react-native-elements";
 import SearchAlt from "./searchAlt";
 import ProfilePicture from "react-native-profile-picture";
-import SkeletonContent from "react-native-skeleton-content";
+
 import BackendInfo from "./service/service";
 
 const Search = ({ navigation, route }) => {
   const [hotels, setHotels] = useState([]);
   const [client, setClient] = useState([]);
   // const [isLoading, setIsLoaded] = useState(false);
-
-  const { location, roomNo, guestNo, dateIn, dateOut, days } = route.params;
+  
+  const { location, roomNo, guestNo, dateIn, dateOut, days, } = route.params;
   console.log("diff", days);
-
+  
   const retrieveData = () => {
     BackendInfo.getAll()
       .then((res) => {

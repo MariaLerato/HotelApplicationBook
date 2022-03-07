@@ -8,12 +8,11 @@ import MyBookings from './BookingHisttory/myBookings'
 import Notification from './notification'
 
 const TabNavigator = ({route}) => {
-    const uid = route.params.uid
+
     const [name,setName] = useState()
     console.log('kjloilhlgygguyguyguyguygi')
     // const [id,setId] = useState(null)
-    console.log('tabId',uid)
-
+    
     const Tab = createMaterialBottomTabNavigator()
     return (
         <Tab.Navigator
@@ -21,8 +20,6 @@ const TabNavigator = ({route}) => {
             labeled={false}
         >
             <Tab.Screen name="home" component={Home }
-           id={uid}
-            
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <Icon name={'home'} type="font-awesome" color={color} />

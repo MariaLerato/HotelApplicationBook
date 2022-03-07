@@ -8,10 +8,17 @@ import registerNNPushToken from 'native-notify';
 const Pay = ({ navigation, route, uid }) => {
   const { hotelname, dateIn, dateOut, roomPrice, name, hotelImage, guests, rooms, Room, roomId, email } = route.params
   console.log(rooms, guests, hotelImage, hotelname, name)
-  const guestId = `${uid}`
+  const guestId = `14025${name}`
   const status = 'booked'
-  const message = `You have successfully booked your hotel suite ${Room}.`
+  const message = 
+  `You have successfully booked your hotel suite ${Room} at hotel ${hotelname}. Your Booking Details Are As Follows:
+    Type Room:${Room}
+    CheckIn Date: ${dateIn}
+    CheckOut Date:${dateOut}
+    Room Price:${roomPrice}
+  `
   registerNNPushToken(2214, 'NN6KNoOr2cYVZgro69Hq5Z')
+
   async function AddNotification() {
     const notify = {
       guestId,
@@ -59,12 +66,7 @@ const Pay = ({ navigation, route, uid }) => {
           appId: 2214,
           appToken: 'NN6KNoOr2cYVZgro69Hq5Z',
           title: `Congratulations ${name}`,
-          message: `You have successfully booked your hotel suite ${Room} at hotel ${hotelname}. Your Booking Details Are As Follows:
-                Type Room:${Room}
-                CheckIn Date: ${dateIn}
-                CheckOut Date:${dateOut}
-                Room Price:${roomPrice}
-            `
+          message: `You have successfully booked your hotel suite ${Room}.`
           , pushData: { screenName: 'Montello Hotel Booking App' }
         }).then((res) => {
           console.log('Sent a notification please check')

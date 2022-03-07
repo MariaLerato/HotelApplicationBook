@@ -10,12 +10,12 @@ const SignUp = ({ navigation }) => {
     const [isVisible, setIsVisible] = useState(true)
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
-    const [confirm, setConfirm] = useState()
+    const [name, setName] = useState()
     console.log(email)
     console.log(password)
 
         const Log = () => {
-            User.signUp(email,password,navigation)
+            User.signUp(email,password,navigation,name)
           
         }  
     const Validate = Yup.object({
@@ -59,6 +59,17 @@ const SignUp = ({ navigation }) => {
                 }) => ( */}
                     <View>
                         <View style={styles.Sign}>
+                              <Text style={styles.title}>Name</Text>
+                            <Input
+                                placeholder=" Enter Name"
+                                style={styles.input}
+                                leftIcon={<Icon name="user" type="font-awesome" color='#1C5248' />}
+                                // rightIcon={<PasswordView />}
+                                // secureTextEntry={isVisible}
+                                value={name}
+                                onChangeText={(t)=>setName(t)}
+                             
+                            />
                             <Text style={styles.title}>E-mail</Text>
                             <Input
                                 placeholder=" Email Address"
@@ -85,17 +96,7 @@ const SignUp = ({ navigation }) => {
                             {/* {errors.password && touched.password ? (
                                 <Text>{errors.password}</Text>
                             ) : null} */}
-                            <Text style={styles.title}>Confirm Password</Text>
-                            <Input
-                                placeholder=" Re-enter Password"
-                                style={styles.input}
-                                leftIcon={<Icon name="lock" type="font-awesome" color='#1C5248' />}
-                                rightIcon={<PasswordView />}
-                                secureTextEntry={isVisible}
-                                value={confirm}
-                                onChangeText={(t)=>setConfirm(t)}
-                             
-                            />
+                         
                             {/* {errors.confirm && touched.confirm ? (
                                 <Text> {errors.confirm}</Text>
                             ) : null} */}

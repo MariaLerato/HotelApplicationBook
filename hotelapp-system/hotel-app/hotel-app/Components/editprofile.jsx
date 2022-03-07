@@ -2,7 +2,10 @@ import React,{useState,useEffect} from 'react'
 import BackendInfo from './service/service'
 import {Text,StyleSheet,View,ScrollView,TouchableOpacity} from 'react-native'
 import { Avatar,Icon } from 'react-native-elements'
+// import firebase from './firebase/firebase'
 import EditComponent from './editComponent'
+// const auth = firebase.app.auth()
+// const user = auth.currentUser.uid
 
 const Editprofile = ({navigation}) => {
     console.log('jshdfl')

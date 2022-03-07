@@ -12,7 +12,7 @@ const DetailsHistory = ({navigation,route}) =>{
     console.log('try deleting',Id);
     const Delete = (itemId)=>{
         BackendInfo.deleteBooking(Id)
-        .then(response=>{
+        .then(res=>{
             setHotelGuests(res.data.hotelGuests)
             console.log('delered check out');
             navigation.goBack()

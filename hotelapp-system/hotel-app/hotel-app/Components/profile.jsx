@@ -6,11 +6,15 @@ import BackendInfo from './service/service'
 import ProfilePicture from 'react-native-profile-picture';
 import User from './firebase/authentication'
 
+
 const Profile = ({ navigation, route,uid }) => {
     const [client, setClient] = useState([])
     const [isLoaded,setIsLoaded] = useState(false)
     const [image,setImage] = useState()
-    console.log('uid',uid)
+    // console.log('uid',uid)
+    // const auth = firebase.app.auth()
+    // const user = auth.currentUser.uid
+  
 
     const retrieveData = (e) => {
         BackendInfo.getClient()
