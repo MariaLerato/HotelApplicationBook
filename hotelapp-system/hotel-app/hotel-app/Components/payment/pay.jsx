@@ -4,11 +4,13 @@ import { View } from 'react-native';
 import BackendInfo from '../service/service'
 import axios from 'axios';
 import registerNNPushToken from 'native-notify';
-
+import firebase from '../firebase/firebase';
 const Pay = ({ navigation, route, uid }) => {
   const { hotelname, dateIn, dateOut, roomPrice, name, hotelImage, guests, rooms, Room, roomId, email } = route.params
   console.log(rooms, guests, hotelImage, hotelname, name)
-  const guestId = `14025${name}`
+
+ const userId = firebase.app.auth().currentUser.uid
+  const guestId = userId
   const status = 'booked'
   const message = 
   `You have successfully booked your hotel suite ${Room} at hotel ${hotelname}. Your Booking Details Are As Follows:
@@ -54,6 +56,7 @@ const Pay = ({ navigation, route, uid }) => {
       dateIn,
       dateOut,
       email,
+    
     };
     console.log(newGuest)
     BackendInfo.createGuest(newGuest)

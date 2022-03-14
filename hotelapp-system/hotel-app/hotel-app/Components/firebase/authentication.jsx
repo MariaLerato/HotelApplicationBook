@@ -5,14 +5,13 @@ const db = firebase.ref('/users')
 const auth = firebase.app.auth()
 
 class User{
-     signUp(email,password,navigation,name) {
+     signUp(email,password,navigation,confirm) {
         return firebase.app.auth().createUserWithEmailAndPassword(email,password).then(res => {
          res.user.sendEmailVerification()
             .then(action => {
                navigation.navigate('passwordAlert')
                 db.child(res.user.uid)
                 .set({
-                    name:name,
                     password:password,
                     email: email,
                     uid: res.user.uid

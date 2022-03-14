@@ -14,22 +14,21 @@ export default class ClientDao{
             console.log(`Unable to establish a connection handle at ClientDao:${e}`)
         }
     }
-    static async addClient(userId,appId,name,surname,image,email,password,date){
+    static async addClient(userId,name,surname,image,email,phone,address,date){
         try{
-            const clientDao ={
-                appId:appId,
+            console.log('=================');
+            const clientDao = {
                 userId:userId,
                 name:name,
                 surname:surname,
-                age:age,
                 image:image,
                 email:email,
-                password:password,
+                phone:phone,
+                address:address,
                 date:date
             }
-            console.log(clientDao)
+            console.log('userDao',clientDao)
             return await Client.insertOne(clientDao)
-
         }catch(e){
             console.log('client not posted')
         }
@@ -59,11 +58,11 @@ export default class ClientDao{
             return {ClientList:[],totalNumClientList:0}
         }
     }
-    static async updateClient(userId,hotelId,name,surname,image,email,date){
+    static async updateClient(userId,name,surname,image,email,phone,address,date){
         try{
             const updateClient = await Client.updateOne(
                 {user_id:userId,},
-                {$set:{ name:name,surname:surname,image:image,email:email,date:date,}}
+                {$set:{ name:name,surname:surname,image:image,email:email,phone:phone,address:address,date:date,}}
             )
             console.log('{{{{}}}}}')
             console.log("dafk",updateClient)

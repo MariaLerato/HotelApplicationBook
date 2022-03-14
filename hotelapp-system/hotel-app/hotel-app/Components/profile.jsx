@@ -5,12 +5,15 @@ import { img } from './gallery/reusables';
 import BackendInfo from './service/service'
 import ProfilePicture from 'react-native-profile-picture';
 import User from './firebase/authentication'
+import firebase from './firebase/firebase'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const Profile = ({ navigation, route,uid }) => {
     const [client, setClient] = useState([])
     const [isLoaded,setIsLoaded] = useState(false)
     const [image,setImage] = useState()
+    const userId = firebase.app.auth().currentUser.uid
     // console.log('uid',uid)
     // const auth = firebase.app.auth()
     // const user = auth.currentUser.uid
@@ -32,13 +35,17 @@ const Profile = ({ navigation, route,uid }) => {
     }, [])
     return (
         <View style={Styles.container}>
-              
             {client.map(data =>
                     <>
-                    <View style={Styles.header}>
+                    {userId === data.userId?(
+                         <View style={Styles.header}>
                         <Image source={{ uri:data.image.localUri}} style={{ width: 160, height: 160, borderRadius: 70, borderColor: 'white', borderWidth: 5, marginTop: '-8%' }}></Image>
                         <Text style={Styles.headText}>{data.name} {data.surname}</Text>
-                        </View>                    
+                        </View>   
+                    ):(
+                        null
+                    )}
+                                    
                     </>
                 )
             }

@@ -1,12 +1,15 @@
 import React,{useState,useEffect} from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, ScrollView, } from 'react-native'
-import { Icon, Avatar } from 'react-native-elements';
+import { Icon, Avatar ,ListItem} from 'react-native-elements';
 import BackendInfo from './service/service'
+import moment from 'moment';
+import firebase from './firebase/firebase';
 
 const Notification = ({ navigation }) => {
+  const [date,setDate] = useState(0)  
     const [NotifyGuest,setNotifyGuest] = useState([])
     const [getTime,setTime] = useState()
-    
+    const userId = firebase.app.auth().currentUser.uid
     const getNotification = ()=>{
         BackendInfo.getNotification()
         .then((res)=>{
@@ -17,43 +20,40 @@ const Notification = ({ navigation }) => {
             console.log('guest',e)
         })
     }
-    const TimeRemining = (birthday)=>{
-        var bday = new Date(birthday);
-        let today = new Date();
-        var distance =bday.getTime() - today.getTime()
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24))
-        var hours = Math.floor((distance % (1000 * 60 *60 *24)) / (1000 * 60 *60))
-     var minutes = Math.floor((distance % (1000 *60 *60))/(1000 *60))
-        var seconds  = Math.floor((distance % (1000 * 60))/1000)
-    }
+
     useEffect(()=>{
         getNotification()
     },[])
+
     return (
-        <ScrollView style={{backgroundColor:'white', flex: 1}} >
-            <View style={{ marginTop: '2%',  }}>
-                <View style={Styles.head}>
-                    <TouchableOpacity style={Styles.header} onPress={navigation.goBack()}>
-                        <Icon name={'arrow-back'}  color= '#1C5248' style={{ fontWeight: '700', marginTop: '17%' }} onPress={() => navigation.goBack()} />
-                        <Text style={Styles.textHead}>Notifications</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ margin: '1%' }}>
-                    {
-                        NotifyGuest.map(data =>
-                            <View key={data._id} style={Styles.notify}>
-                                <View style={{ paddingLeft: '2%' }}>
-                                    <Text style={{paddingLeft:'2%',color:'#d8d8d8',paddingRight:'2%',width:'80%'}}>{data.message}</Text>
-                                    <Text style={Styles.hotelname}>{data.hotelname}</Text>
-                                    
-                                </View>
-                                <Avatar size={'medium'} source={{uri:data.hotelImage}}  />
-                            </View>
-                        )
-                    }
-                </View>
-            </View>
+       <View style={Styles.container}>
+        <View style={{flexDirection:'row',justifyContent:'space-between',backgroundColor:'#61B0A2',height:75,padding:'3%',marginLeft:'-2%',marginRight:'-2%'}}>
+             <Text style={{color:'white',marginTop:'4%',fontSize:28,fontWeight:'600',paddingLeft:'4%'}}>Notifications</Text>
+              <TouchableOpacity style={{marginTop:'6%',color:'white',fontWeight:'700',paddingRight:'2%',fontSize:16}}>
+                  <Icon name='search' color={'white'}/>
+              </TouchableOpacity>
+          </View> 
+         <ScrollView>
+        {
+            NotifyGuest.map((data)=>
+            <>
+            {userId === data.guestId?(<>
+             <ListItem >
+                        <Avatar rounded size={'medium'} source={{uri:data.hotelImage}} />
+                        <ListItem.Content>
+                            <ListItem.Title>{data.hotelname}</ListItem.Title>
+                            <ListItem.Subtitle style={{height:20}}>{data.message}</ListItem.Subtitle>
+                        </ListItem.Content>
+                        <Text>{moment(data.date).fromNow()}</Text>
+                    </ListItem>
+            </>):(null)}
+              
+            </>
+                 
+            )
+        }
         </ScrollView>
+       </View>
     )
 }
 const Styles = StyleSheet.create({
@@ -62,16 +62,22 @@ const Styles = StyleSheet.create({
         flexDirection: 'row',
         padding: '4%',
     },
+    container:{
+        flex:1,
+        paddingHorizontal:'1%',
+        paddingVertical:'6%',
+        backgroundColor:'white'
+    },
     head: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
-     
         marginTop: '-10%',
         paddingTop: '14%',
         padding: '2%',
-        borderBottomLeftRadius: 5, borderBottomEndRadius: 5
+        borderBottomLeftRadius: 5,
+        borderBottomEndRadius: 5
     },
 
     textHead: {

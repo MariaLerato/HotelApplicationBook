@@ -10,6 +10,7 @@ const DetailsHistory = ({navigation,route}) =>{
 //  const [isLoading,setLoading] = useState(true)
     const [status,setStatus] = useState('Booked')
     console.log('try deleting',Id);
+
     const Delete = (itemId)=>{
         BackendInfo.deleteBooking(Id)
         .then(res=>{
@@ -21,6 +22,7 @@ const DetailsHistory = ({navigation,route}) =>{
             console.log('error deleting',e)
         })
     }
+    
     return(
         <>
         <View style={{flex:1,padding:'8%'}}>

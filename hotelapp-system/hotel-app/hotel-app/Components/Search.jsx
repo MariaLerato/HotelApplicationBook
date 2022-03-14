@@ -11,14 +11,17 @@ import {
 import { Icon } from "react-native-elements";
 import SearchAlt from "./searchAlt";
 import ProfilePicture from "react-native-profile-picture";
-
+import firebase from './firebase/firebase'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import BackendInfo from "./service/service";
 
 const Search = ({ navigation, route }) => {
   const [hotels, setHotels] = useState([]);
   const [client, setClient] = useState([]);
   // const [isLoading, setIsLoaded] = useState(false);
-  
+  const userId = firebase.app.auth().currentUser.uid 
+
+  console.log('userId',userId);
   const { location, roomNo, guestNo, dateIn, dateOut, days, } = route.params;
   console.log("diff", days);
   
@@ -107,6 +110,7 @@ const Search = ({ navigation, route }) => {
         <View>
           {client.map((action) => (
             <View key={action._id}>
+              {userId === action.userId?(
               <View style={styles.ImageContainer}>
                 <ProfilePicture
                   isPicture={true}
@@ -134,6 +138,8 @@ const Search = ({ navigation, route }) => {
                   />
                 </TouchableOpacity>
               </View>
+          
+          ):(<></>)}
             </View>
           ))}
         </View>

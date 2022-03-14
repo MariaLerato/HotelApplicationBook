@@ -16,28 +16,31 @@ export default class ClientController{
         res.json(response.Client)
         console.log(response.Client)
     }
+
     static async apiPostClient(req,res){
         try{
-            const appId = req.body.app_id
-            const userId = req.body.user_id
-            const name=req.body.name
-            const  surname=req.body.surname
-             const  image=req.body.image
-             const  email=req.body.email
-            const   password=req.body.password
+            // const userId = req.body.user_id
+            // const name=req.body.name
+            // const  surname=req.body.surname
+            //  const  image=req.body.image
+            //  const  email=req.body.email
+            // const   phone=req.body.phone
+            // const address = req.body.address
             const date = new Date()
-           
+            const {userId,name,surname,image,email,phone,address} = req.body
+         
+            console.log('client',req.body);
             const ClientRes = await ClientDao.addClient(
-                appId,
                 userId,
                 name,
-                surname,
+                surname,    
                 image,
                 email,
-                password,
+                phone,
+                address,
                 date
             )
-            console.log(ClientRes)
+            console.log('resData',ClientRes)
             res.json({status:"Success"})
         }catch(e){
             res.status(500).json({error:e.message})
@@ -53,7 +56,7 @@ export default class ClientController{
             //   const  email=req.body.email
             //  const   password=req.body.password
              const date = new Date()
-           const {hotelId,name,surname,image,email,password} = req.body
+           const {hotelId,name,surname,image,email,phone,address} = req.body
            console.log('modei',req.body)
            
            const ClientResponse = await ClientDao.updateClient(
@@ -63,7 +66,8 @@ export default class ClientController{
                 surname,
                 image,
                 email,
-                password,
+                phone,
+                address,
                 date,
             )
             console.log("client",ClientResponse)

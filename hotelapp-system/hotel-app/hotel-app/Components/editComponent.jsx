@@ -4,14 +4,17 @@ import { Icon, Avatar } from 'react-native-elements';
 import { TextInput } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker'
 import BackendInfo from './service/service'
+import ProfilePicture from "react-native-profile-picture";
 
 const EditComponent = ({data,navigation})=>{
+
     const [image, setImage] = useState(data.image)
     const [name, setName] = useState(data.name)
     const [surname, setSurname] = useState(data.surname)
     const [email, setEmail] = useState(data.email)
     const [Client, setClient] = useState([])
-    const [password, setPassword] = useState(data.password)
+    const [phone, setPhone] = useState(data.phone)
+    const [address,setAddress] = useState(data.address)
     const [userId, setId] = useState(data.userId)
 
     let openImagePickerAsync = async ()=>{
@@ -27,6 +30,8 @@ const EditComponent = ({data,navigation})=>{
         setImage({localUri:pickerResult.uri})
         console.log(pickerResult)
     }
+
+    // const Get
     const date = new Date()
     const PostClient=(e)=> {
         const newClient = {
@@ -87,8 +92,8 @@ return(
                         <TextInput  label={'First Name'} value={name} onChangeText={(e) => setName(e)} style={{ backgroundColor: '#E8FDF9', borderRadius: 10, width: '80%', margin: '2%' }} />
                         <TextInput  label={'Last Name'} value={surname} onChangeText={(e) => setSurname(e)} style={{ backgroundColor: '#E8FDF9', borderRadius: 10, width: '80%', margin: '2%' }} />
                         <TextInput  label={'Email Address'} value={email} onChangeText={(e) => setEmail(e)} style={{ backgroundColor: '#E8FDF9', borderRadius: 10, width: '80%', margin: '2%' }} />
-                        <TextInput type={'password'} label={'Old Password'} value={password} onChangeText={(e) => setPassword(e)} style={{ backgroundColor: '#E8FDF9', borderRadius: 10, width: '80%', margin: '2%' }} />
-                        <TextInput  label={'New Password'} style={{ backgroundColor: '#E8FDF9', borderRadius: 10, width: '80%', margin: '2%' }} />
+                        <TextInput label={'Phone Number'}  value={phone} onChangeText={(e) => setPhone(e)} style={{ backgroundColor: '#E8FDF9', borderRadius: 10, width: '80%', margin: '2%' }} />
+                        <TextInput  label={'Physical Address'} value={address} onChangeText={(e)=>setAddress(e)} style={{ backgroundColor: '#E8FDF9', borderRadius: 10, width: '80%', margin: '2%' }} />
                     </View>
     </>
 )

@@ -10,12 +10,12 @@ const SignUp = ({ navigation }) => {
     const [isVisible, setIsVisible] = useState(true)
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
-    const [name, setName] = useState()
+    const [confirm, setConfirm] = useState()
     console.log(email)
     console.log(password)
 
         const Log = () => {
-            User.signUp(email,password,navigation,name)
+            User.signUp(email,password,navigation,confirm)
           
         }  
     const Validate = Yup.object({
@@ -59,17 +59,7 @@ const SignUp = ({ navigation }) => {
                 }) => ( */}
                     <View>
                         <View style={styles.Sign}>
-                              <Text style={styles.title}>Name</Text>
-                            <Input
-                                placeholder=" Enter Name"
-                                style={styles.input}
-                                leftIcon={<Icon name="user" type="font-awesome" color='#1C5248' />}
-                                // rightIcon={<PasswordView />}
-                                // secureTextEntry={isVisible}
-                                value={name}
-                                onChangeText={(t)=>setName(t)}
-                             
-                            />
+                            
                             <Text style={styles.title}>E-mail</Text>
                             <Input
                                 placeholder=" Email Address"
@@ -92,6 +82,17 @@ const SignUp = ({ navigation }) => {
                                 value={password}
                                 onChangeText={(t)=>setPassword(t)}
                            
+                            />
+                              <Text style={styles.title}>Confirm</Text>
+                            <Input
+                                placeholder="Confirm Password"
+                                style={styles.input}
+                                leftIcon={<Icon name="user" type="font-awesome" color='#1C5248' />}
+                                // rightIcon={<PasswordView />}
+                                // secureTextEntry={isVisible}
+                                value={password}
+                                onChangeText={(t)=>setPassword(t)}
+                             
                             />
                             {/* {errors.password && touched.password ? (
                                 <Text>{errors.password}</Text>

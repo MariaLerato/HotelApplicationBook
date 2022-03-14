@@ -3,7 +3,6 @@
 import http from "./http"
 
 class BackendInfo {
-   
     getAll(page=0){
         return http.get(`?page=${page}`)
     }

@@ -13,9 +13,10 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import { Icon, Input, Avatar, ListItem } from "react-native-elements";
 // import { img } from "../gallery/reusables";
 import BackendInfo from "../service/service";
+import firebase from "../firebase/firebase";
 
 const MyBookings = ({ navigation }) => {
- 
+ const userId = firebase.app.auth().currentUser.uid
   const [hotelGuest, setGuest] = useState([]);
   const [client, setClient] = useState([]);
   const [isLoadig,setLoading] = useState(false)
@@ -52,33 +53,36 @@ const MyBookings = ({ navigation }) => {
       <>
       {!isLoadig?(<>
         <Text>Please Wait While We Sync Your Bookings</Text>
-
-        
         </>
       ):(
         <>
            {hotelGuest.map((data) => 
-          <ListItem key={data._id} >
-              <Avatar size={'medium'} source={{ uri: data.hotelImage }}></Avatar>
-           <ListItem.Content>
-              <ListItem.Title style={{ color: "#1C5248",fontSize:20}}>{data.hotelname}</ListItem.Title>
-            </ListItem.Content>
-            <ListItem.Chevron
-              onPress={()=>
-                navigation.navigate("historyDetails", {
-                  hotelname: data.hotelname,
-                  dateIn: data.dateIn,
-                  dateOut: data.dateOut,
-                  roomNo: data.rooms,
-                  Totalprice: data.roomPrice,
-                  name: data.name,
-                  image: data.hotelImage,
-                  guestId:data.guestId,
-                  Id:data._id
-                })
-              }
-            />
-          </ListItem>
+           <>
+           {userId === data.guestId?(<>
+            <ListItem key={data._id} >
+            <Avatar size={'medium'} rounded source={{ uri: data.hotelImage }}></Avatar>
+         <ListItem.Content>
+            <ListItem.Title style={{ color: "#1C5248",fontSize:20}}>{data.hotelname}</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron
+            onPress={()=>
+              navigation.navigate("historyDetails", {
+                hotelname: data.hotelname,
+                dateIn: data.dateIn,
+                dateOut: data.dateOut,
+                roomNo: data.rooms,
+                Totalprice: data.roomPrice,
+                name: data.name,
+                image: data.hotelImage,
+                guestId:data.guestId,
+                Id:data._id
+              })
+            }
+          />
+        </ListItem>
+           </>):(null)}
+       
+          </>
             )}
             
         </>

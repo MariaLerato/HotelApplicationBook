@@ -1,47 +1,104 @@
-import React from 'react'
-import {View,Text,StyleSheet,TouchableOpacity,Image,ImageBackground} from 'react-native'
-import { Icon,Input } from 'react-native-elements'
+import React,{useState,useEffect} from 'react'
+import { ScrollView ,StyleSheet,Text,View} from 'react-native'
+import { ListItem ,Avatar,Input, Icon} from 'react-native-elements'
+import BackendInfo from './service/service'
 
-const SearchHistory = ({navigation})=>{
-    return(
-        <>
-        <View style={{marginTop:'8%',backgroundColor:'#EBE9E9',alignItems:'center',borderTopStartRadius:20,borderTopEndRadius:20,flex:1}}>
-        <Icon name={'arrow-back'} color={'#1C5248'} style={{fontWeight:'700',marginTop:'17%',}} onPress={()=>navigation.goBack()} />
-               <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',padding:'4%'}}>
-                    <Input  
-                    placeholder={'       Search History'}
-                    leftIcon={<Icon name={'search'} type={'font-awesome'} color='#4C9285'/>}
+const SearchNotifications = () => {
+  const [NotifyGuest,setNotifyGuest] = useState([])
+    const [searchItem,setItem] = useState('')
+
+    const retrieveGuest = (e) => {
+        BackendInfo.getAllGuests().then((res) => {
+          console.log(res.data);
+          setGuest(res.data.hotelGuest);
+        });
+    };
+    useEffect(()=>{
+        retrieveGuest();
+    },[])
+   
+    const SearchNotify = (item)=>{
+        if(item !== ''){
+            const results = NotifyGuest.filter((data)=>{
+                console.log(item)
+                return data.hotelname.toLowerCase().startsWith(item.toString().toLowerCase())
+            });
+            setNotifyGuest(results)
+        }else{
+          setNotifyGuest(NotifyGuest)
+        }
+        setItem(item)
+    }
+  return (
+    <ScrollView  style={styles.container}>
+           <View >
+               <Input
+               leftIcon={<Icon name='search' type='font-awesome' color={"#1C5248"} size={20} />}
+                value={searchItem}
+               onChangeText={SearchNotify}
+               style={{padding:'2%'}}
+               placeholder={'Search Booking History'}
+               />
+               { 
+              NotifyGuest && NotifyGuest.length > 0?( 
+                NotifyGuest.map(data=>
+                    <>
+                        
+                  <ListItem key={data._id} >
+                      <Avatar size={'medium'} source={{ uri: data.hotelImage }}></Avatar>
+                   <ListItem.Content>
+                   
+                      <ListItem.Title style={{ color: "#1C5248",fontSize:20}}>{data.hotelname}</ListItem.Title>
+                    </ListItem.Content>
+                    <ListItem.Chevron
+                      onPress={() =>
+                        navigation.navigate("historyDetails", {
+                          hotelname: data.hotelname,
+                          dateIn: data.dateIn,
+                          dateOut: data.dateOut,
+                          roomNo: data.rooms,
+                          Totalprice: data.roomPrice,
+                          name: data.name,
+                          image: data.hotelImage,
+                        })
+                      }
                     />
-                    {/* <Icon name={'search'} type={'font-awesome'} color='#4C9285' style={{alignSelf:'flex-end',marginLeft:'20%'}}/> */}
-               </View>
-               <View style={{width:'100%'}}>
-                   <View style={{display:'flex',flexDirection:'row',padding:'1%'}}>
-                       <ImageBackground source={require('../assets/pretoria.png')} style={{width:150,height:150,padding:'2%',margin:'2%'}}>
-                           <Text style={{alignSelf:'flex-end',marginTop:'85%',color:'white'}}>Sandton Sun Hotel</Text>
-                       </ImageBackground>
-                       <ImageBackground source={require('../assets/sun.png')} style={{width:177,height:210,margin:'2%',borderRadius:70}}>
-                           <Text style={{alignSelf:'flex-end',marginTop:'95%',color:'white'}}>Hotel Sandton Star</Text>
-                       </ImageBackground>
-                   </View>
-                   <View style={{display:'flex',flexDirection:'row',padding:'1%'}}>
-                       <ImageBackground source={require('../assets/sandton.png')} style={{width:150,height:226,marginTop:'-15%',margin:'2%'}}>
-                           <Text style={{alignSelf:'flex-end',marginTop:'120%',color:'white'}}>Luxurious Hotel</Text>
-                       </ImageBackground>
-                       <ImageBackground source={require('../assets/palm.png')} style={{width:177,height:110,margin:'1%'}}>
-                           <Text style={{alignSelf:'flex-end',marginTop:'45%',color:'white'}}>Palm Hotel</Text>
-                       </ImageBackground>
-                   </View>
-                   <View style={{display:'flex',flexDirection:'row',padding:'1%'}}>
-                       <ImageBackground source={require('../assets/maslow.png')} style={{width:150,height:150,padding:'2%',margin:'2%'}}>
-                           <Text style={{alignSelf:'flex-end',marginTop:'85%',color:'white'}}>Signature Hotel</Text>
-                       </ImageBackground>
-                       <ImageBackground source={require('../assets/protea.png')} style={{width:177,height:210,margin:'2%',borderRadius:70,marginTop:'-15%'}}>
-                           <Text style={{alignSelf:'flex-end',marginTop:'95%',color:'white'}}>Hotel @ Hatfield</Text>
-                       </ImageBackground>
-                   </View>
-               </View>
-            </View>
-        </>
-    )
+                  </ListItem>
+                    </>
+               )
+          
+               ): (
+                     <Text>No results Found!</Text>
+             )    
+            }
+    
+ 
+    </View>
+
+    </ScrollView>
+);
 }
-export default SearchHistory
+  const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor:'white',
+        // justifyContent:'flex-start',
+        paddingVertical:'8%',
+        paddingHorizontal:'2%'
+    },
+  textContainer: {
+    backgroundColor: "white",
+    width: "90%",
+    height: 65,
+    alignSelf: "center",
+    justifyContent: "center",
+    marginTop: "auto",
+    padding: "4%",
+    borderRadius: 20,
+    marginBottom: "4%",
+  },
+
+
+})
+
+export default SearchNotifications

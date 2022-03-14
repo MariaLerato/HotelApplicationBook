@@ -15,7 +15,7 @@ export  default class NotifyDAO{
             console.error(`Unable to establish connection handle in notifications: ${e}`)
         }
     }
-    static async addNotification(guestId,name,rooms,guests,roomPrice,hotelImage,hotelname,dateIn,dateOut,Room,email,message){
+    static async addNotification(guestId,name,rooms,guests,roomPrice,hotelImage,hotelname,dateIn,dateOut,Room,email,message,date){
         try{
             const notifyHoc = {
                 guestId:guestId,
@@ -29,7 +29,8 @@ export  default class NotifyDAO{
                 dateOut:dateOut,
                 Room:Room,
                 email,
-                message
+                message,
+                date
             }
             console.log('notify',notifyHoc)
             return await notification.insertOne(notifyHoc)

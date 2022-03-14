@@ -178,7 +178,11 @@ const Styles = StyleSheet.create({
     paddingVertical: "2%",
     paddingHorizontal: "2%",
      textDecorationStyle:'solid',
-     textDecorationLine:'underline',
+    //  textDecorationLine:'underline',
+     borderWidth:1 ,
+     borderRadius:5,
+     borderColor:"#1C5248",
+    top:2,
      textDecorationColor:"#06AC8E"
   },
   price: {

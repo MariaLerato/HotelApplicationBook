@@ -18,6 +18,7 @@ export default class NotifyController{
             const    Room=req.body.Room
             const    email=req.body.email
             const message = req.body.message
+            const date = new Date()
             const notifyResponse = await NotifyDao.addNotification(
                 guestId,
                name,
@@ -30,7 +31,8 @@ export default class NotifyController{
                dateOut,
                Room,
                email,
-               message
+               message,
+               date
             )
             console.log('notif',notifyResponse)
             res.json({status:"Success"})

@@ -3,13 +3,17 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon, Input } from 'react-native-elements'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-
+import firebase from '../firebase/firebase';
+import BackendInfo from '../service/service'
 
 const PaymentMethod = ({ navigation, route }) => {
-  const [email, setEmail] = useState('')
+  const email = firebase.app.auth().currentUser.email
+  // const [Useremail, setEmail] = useState(email)
   const [fullname, setName] = useState('')
   const [cvv, setCVV] = useState('')
   const [number, setNumber] = useState('')
+  console.log('email',email)
+
   const [payment, setPayment] = useState([])
   const [date,setDate] = useState(new Date())
   const { hotelname, Totalprice, Roomname, Guestnumber, dateIn, dateOut, roomNo, location, image, roomId } = route.params
@@ -26,19 +30,19 @@ const PaymentMethod = ({ navigation, route }) => {
     console.log('data payment',payment)
   }
   const Validate = Yup.object({
-    email: Yup.string().email('Enter correct email format').required('Required'),
+    email: Yup.string().email('Enter correct email format'),
     fullname: Yup.string().required('Required'),
-    number: Yup.string().required('Required').max(16,'invalid'),
+    number: Yup.string().required('Required').max(16,'invalid').min(16,'Card Numbers Must Be 16'),
     cvv: Yup.string().required('Required').max(3,'Not more than 3 numbers')
   })
 
   return (
     <>
+    
       <View style={{ backgroundColor: '#FFFFFF', flex: 1 }}>
         <View style={Styles.header}>
           <Icon name={'arrow-back'} color={'#C4C4C4'} style={{ fontWeight: '700', marginTop: '20%' }} onPress={() => navigation.goBack()} />
           <Text style={Styles.textHead}>Payment</Text>
-
         </View>
         <Formik
           initialValues={{
@@ -53,7 +57,7 @@ const PaymentMethod = ({ navigation, route }) => {
         onSubmit={(values)=>{
           NewMethod(values.cvv,values.email,values.fullname,values.number);
           navigation.navigate('paymentmethod', {
-            email :values.email,
+            email :email,
             name:values.fullname,
             number:values.number,
           cvv:values.cvv,
@@ -89,7 +93,7 @@ const PaymentMethod = ({ navigation, route }) => {
                 placeholder={'Email'}
                 leftIcon={<Icon name={'at'} type={'font-awesome-5'} size={30} color={'#6DA399'} />}
                 style={Styles.textbox}
-                value={values.email}
+                value={email}
                 onChangeText={handleChange('email')}
                 keyboardType={'email-address'}
               />

@@ -18,10 +18,14 @@ import Users from './firebase/authentication'
 import firebase from './firebase/firebase'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+const db = firebase.ref('/users')
+const auth = firebase.app.auth()
 
 
 
 const Home = ({ AddBooking, navigation,route ,id}) => {
+
+  // const user = auth.currentUser.uid
 
   console.log('margidjjd');
   const [open, setOpen] = useState(true);
@@ -69,18 +73,23 @@ const [email,setEmail] = useState()
     ]);
 
   };
-  
+  const userId = firebase.app.auth().currentUser.uid 
+
+  console.log('userId',userId);
   const retrieveData = () => {
     BackendInfo.getClient()
       .then((res) => {
         console.log(res.data);
         // setIsLoaded(true)
         setClient(res.data);
+        
+        console.log(res.data);
       })
       .catch((e) => {
         console.log(e);
       });
   };
+
   const GetLogged = ()=>{
     const  id = AsyncStorage.getItem('userid')
         Users.getLoggedData(id).on('value',action=>{
@@ -130,12 +139,10 @@ const [email,setEmail] = useState()
         />
       </View>
       <View style={styles.container}>
-    
-
-        {client.map((data) => (
+        { 
+        client.map((data) => (
         <>
-       
-          <>
+       {userId === data.userId?(
             <View style={styles.header} >
             <View key={data._id}>
               <Text style={styles.headertext}>Hi {data.name}</Text>
@@ -146,16 +153,19 @@ const [email,setEmail] = useState()
               </Text>
             </View>
             <Image source={{ uri:data.image.localUri}} style={{ width: 60, height: 60,borderRadius:40 }}></Image>
-         
          </View>
-          </>
+         
+
+       ):(
+      null
+       )}
+         
 
       
             
          
         </>
         ))}
-     
         <Formik
           initialValues={{
             place: "",
@@ -250,7 +260,7 @@ const [email,setEmail] = useState()
                       },
                     }}
                     onDateChange={handleChange("checkOut")}
-                    // onCloseModal={CalculateDifference}
+                    
                   />
                   {errors.checkOut && touched.checkOut ? (
                     <Text style={styles.error}>{errors.checkOut}</Text>

@@ -2,17 +2,15 @@ import React,{useState,useEffect} from 'react'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import Home from './home'
 import { Icon } from 'react-native-elements'
-
 import Profile from './profile'
 import MyBookings from './BookingHisttory/myBookings'
 import Notification from './notification'
 
-const TabNavigator = ({route}) => {
 
+const TabNavigator = ({route}) => {
     const [name,setName] = useState()
     console.log('kjloilhlgygguyguyguyguygi')
     // const [id,setId] = useState(null)
-    
     const Tab = createMaterialBottomTabNavigator()
     return (
         <Tab.Navigator
@@ -26,6 +24,13 @@ const TabNavigator = ({route}) => {
                     ),
                 }}
             />
+            <Tab.Screen name='notification' component={Notification}
+            options={{
+                tabBarIcon:({color,size})=>(
+                    <Icon name='bell' type='font-awesome' color={color} />
+                )
+            }}
+            />
             <Tab.Screen name="myBookings" component={MyBookings}
                 options={{
                     tabBarIcon: ({ color, size }) => (
@@ -33,18 +38,6 @@ const TabNavigator = ({route}) => {
                     ),
                 }}
             />
-            {/* <Tab.Screen name="notification" component={Notification} 
-                 options={{
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon
-                            name={"bell"}
-                            type="font-awesome"
-
-                            color={color}
-                        />
-                    ),
-                }}
-            /> */}
             <Tab.Screen name="profile" component={Profile} 
            
                 options={{
