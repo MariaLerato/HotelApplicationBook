@@ -46,7 +46,7 @@ const PretoriaHotels = ({ navigation, route }) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            marginTop: "10%",
+            marginTop: "8%",
             alignItems: "center",
           }}
         >
@@ -66,7 +66,7 @@ const PretoriaHotels = ({ navigation, route }) => {
                 searchData.map(data=>
                   <View key={data._id}>
                  <ListItem key={data._id} >
-                      <Avatar size={'xlarge'} source={{ uri: data.image.image }}  onPress={() =>
+                   <TouchableOpacity onPress={() =>
                         navigation.navigate("hotelrooms", {
                           roomNo:roomNo,
                            main:data.image.image,
@@ -79,15 +79,15 @@ const PretoriaHotels = ({ navigation, route }) => {
                            days:days,
                            id:data.hotel_id
                      
-                        })}></Avatar>
-                   
+                        })}>
+
+ <Image source={{ uri: data.image.image }} style={{ borderRadius: 10,width:100,height:120}}  ></Image>
+                   </TouchableOpacity>
                    <ListItem.Content  >
                       <ListItem.Title style={{ color: "#1C5248",fontSize:20}}>{data.name}</ListItem.Title>
                       <ListItem.Subtitle style={{fontSize:10}}>{data.text}</ListItem.Subtitle>
                       <ListItem.Subtitle style={{color:'#FAA455'}}>Hotel Reviews</ListItem.Subtitle>
                     </ListItem.Content>
-                  
-                
                   </ListItem>
               </View>
                   

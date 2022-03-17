@@ -198,7 +198,7 @@ const [email,setEmail] = useState()
                   containerStyle={{ backgroundColor: "white", height: "15%" }}
                   inputContainerStyle={{ borderColor: "white" }}
                   placeholder={"Enter name of province"}
-                  style={{ fontSize: 12, padding: "1%" }}
+                  style={{ fontSize: 12, padding: "2%", margin: "2%" }}
                 />
               </View>
               {errors.place && touched.place ? (

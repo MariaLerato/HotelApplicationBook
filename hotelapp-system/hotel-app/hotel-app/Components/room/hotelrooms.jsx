@@ -3,14 +3,12 @@ import {
   View,
   Text,
   ScrollView,
-  ImageBackground,
   Image,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { Icon } from "react-native-elements";
+import { Icon ,ListItem} from "react-native-elements";
 import BackendInfo from "../service/service";
-
 
 const hotelroom = ({ navigation, route }) => {
   const {
@@ -44,33 +42,39 @@ const hotelroom = ({ navigation, route }) => {
   useEffect(() => {
     retrieveData();
   }, []);
-
   console.log(email)
   const SearchRooms = hotelrooms.filter((data)=>
   data.email === email
   )
 
-  return (
-    <ScrollView style={Styles.container}>
-      <View style={Styles.header}>
-        <Icon
-          name={"arrow-back"}
-          color={"#1C5248"}
-          style={{ fontWeight: "700", marginTop: "17%" }}
-          onPress={() => navigation.goBack()}
-        />
-        <Text style={Styles.textHead}>Our Rooms</Text>
-      </View>
-      <View>
-        {!isLoaded?(
-        <Text>Please Wait While We Sync Your Rooms</Text> 
-        ):(
-        <> 
-        {SearchRooms.map((data) => (
-          <View key={data.id}>
+const ViewRooms = ()=>{
+  return(
+    <>
+    {SearchRooms.map((data) => (
+          <>
               {data.status !=='Not Available'?(
-              <>  
-                <View style={Styles.subHead}>
+         <ListItem key={data._id} >
+           {/* <TouchableOpacity onPress={() =>
+                navigation.navigate("hotelrooms", {
+                  roomNo:roomNo,
+                   main:data.image.image,
+                   name:data.name,
+                   dateIn:dateIn,
+                   dateOut:dateOut,
+                   guestNo:guestNo,
+                   location:location,
+                   email:data.email,
+                   days:days,
+                   id:data.hotel_id
+             
+                })}> */}
+
+<Image  source={{ uri: data.bedImage.bedImage }} style={{ borderRadius: 10,width:150,height:150}}  ></Image>
+           {/* </TouchableOpacity> */}
+           <ListItem.Content>
+              <ListItem.Title style={{ color: "#1C5248",fontSize:20}}>{data.roomName}</ListItem.Title>
+              <ListItem.Subtitle style={{fontSize:10}}>{data.roomDes}</ListItem.Subtitle>
+              <ListItem.Subtitle style={{color:'#FAA455'}}><View>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate("detail", {
@@ -93,60 +97,46 @@ const hotelroom = ({ navigation, route }) => {
                   })
                 }
               >
-                <Text style={Styles.RoomHead}>{data.roomName}</Text>
+                <Text style={Styles.RoomHead}>Book Now</Text>
               </TouchableOpacity>
-              <Text style={Styles.price}>R {data.roomPrice}</Text>
-            </View>
-            <View>
-              <Text style={Styles.subtext}>{data.roomDes}</Text>
-            </View>
-            <ScrollView horizontal style={{ padding: "2%" }}>
-              <TouchableOpacity
-                style={Styles.touchable}
-                onPress={() =>
-                  navigation.navigate("roomA", { pic: data.bedImage.bedImage })
-                }
-              >
-                <Image
-                  source={{ uri: data.bedImage.bedImage }}
-                  style={{ width: 200, borderRadius: 20, height: 150 }}
-                />
+              <TouchableOpacity onPress={()=>navigation.navigate("roomA",{roomId:data._id})}>
+                <Text>Preview Room</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={Styles.touchable}
-                onPress={() =>
-                  navigation.navigate("roomA", { pic: data.lounge.lounge })
-                }
-              >
-                <Image
-                  source={{ uri: data.lounge.lounge }}
-                  style={{ width: 200, borderRadius: 20, height: 150 }}/>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={Styles.touchable}
-                onPress={() =>
-                  navigation.navigate("roomA", { pic: data.bedImage.bedImage })}
-              >
-                <Image
-                  source={{ uri: data.other.other }}
-                  style={{ width: 180, borderRadius: 20, height: 150 }}
-                />
-              </TouchableOpacity>
-              <Text> </Text>
-            </ScrollView>
-              
-              </>
-                
-                ):(null)}
-              
-          </View>
-        ))}
-        </>)}
-       
+                </View></ListItem.Subtitle>
+            </ListItem.Content>
+          </ListItem>
+        ):null}
+      </>
+    ))}
+    
+    </>
+  )
+}
+
+  return (
+    <ScrollView style={Styles.container}>
+      <View style={Styles.header}>
+        <Icon
+          name={"arrow-back"}
+          color={"#1C5248"}
+          style={{ fontWeight: "700", marginTop: "17%" }}
+          onPress={() => navigation.goBack()}
+        />
+        <Text style={Styles.textHead}>Our Rooms</Text>
+      </View>
+      <View>
+        {!isLoaded?(
+        <Text>Please Wait While We Sync Your Rooms</Text> 
+        ):(
+        <> 
+        <ViewRooms/>
+        </>
+        )}
       </View>
     </ScrollView>
   );
 };
+
 const Styles = StyleSheet.create({
   container: {
     marginTop: "10%",
@@ -157,19 +147,16 @@ const Styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     paddingVertical: "2%",
-    // padding: '2%'
   },
   textHead: {
     color: "#1C5248",
     fontSize: 24,
     paddingLeft: "5%",
     fontWeight: "700",
-   
   },
   subHead: {
     display: "flex",
     flexDirection: "row",
-  
     justifyContent: "space-between",
   },
   RoomHead: {
@@ -178,7 +165,6 @@ const Styles = StyleSheet.create({
     paddingVertical: "2%",
     paddingHorizontal: "2%",
      textDecorationStyle:'solid',
-    //  textDecorationLine:'underline',
      borderWidth:1 ,
      borderRadius:5,
      borderColor:"#1C5248",
@@ -192,7 +178,6 @@ const Styles = StyleSheet.create({
   },
   subtext: {
     color: "#B2B2B2",
-    // padding: '2%',
     fontSize: 15,
     paddingVertical: "2%",
     paddingHorizontal: "1.5%",
